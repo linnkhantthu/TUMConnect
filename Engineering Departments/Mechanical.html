@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Mechanical Engineering</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+
+      /* Image Slider Container */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>History</h2>
+        <p>
+          Department of Mechanical Engineering is one of the departments of
+          Technological University (Mandalay). In this university, Mechanical
+          Department established in January 20, 2007. It is opened at the east
+          of university. As all teachers and lab technicians, there are 26
+          staffs and about 350 students in almost every academic year. Under the
+          department of Mechanical, constitute with five engineering field
+          areas.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>To nurture competent Mechanical engineers in the region.</p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <ul>
+          <li>
+            To implement the effective teaching-learning system with modernized
+            curriculum, syllabus and practical work
+          </li>
+          <li>To help the developments of research activities</li>
+          <li>To support the developments of industrial production</li>
+          <li>
+            To develop human resources based on physical and spiritual morality
+          </li>
+          <li>To create better job opportunities for the students</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Objectives</h2>
+        <ul>
+          <li>
+            To have at least 80% pass rate of mechanical engineering students.
+          </li>
+          <li>To reduce the customer complaints lower than 10%.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Degree Awards</h2>
+        <ul>
+          <li>Bachelor of Engineering B.E (Mechanical)</li>
+          <li>Master of Engineering M.E (Mechanical)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Research Areas</h2>
+        <ul>
+          <li>Solid Mechanics</li>
+          <li>Thermal Engineering</li>
+          <li>Renewable Energy</li>
+          <li>Manufacturing</li>
+          <li>Fluid Mechanics</li>
+          <li>
+            Latest Projects:
+            <ul>
+              <li>Canal Water Pumping System for Irrigation</li>
+              <li>Screw Press Oil Expeller</li>
+              <li>Solar Seed Sowing Machine</li>
+              <li>Gear Box Design of AR-120 Reaper</li>
+              <li>Pedestal Bogie Suspension System</li>
+              <li>Home Made Used HAWT</li>
+              <li>Centrifugal Pump Impeller Design</li>
+              <li>River Pumping Project</li>
+              <li>Design and Construction of Solar Water Pumping System</li>
+              <li>Design and Development of Power Weeder</li>
+              <li>Design and Construction of Solar Power Supplied System</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Laboratories and Workshops</h2>
+        <ul>
+          <li>Computer Lab</li>
+          <li>Solid Mechanics Lab</li>
+          <li>Renewable Energy Lab</li>
+          <li>Thermal Lab</li>
+          <li>Machine Workshop</li>
+          <li>Fitting Workshop</li>
+          <li>Welding Workshop</li>
+          <li>Engine Workshop</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Location</h2>
+        <p>
+          Mechanical Engineering Department is situated at Room (8-E) in TUM
+          since 2015.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Department Email</h2>
+        <p>mechtum2022@gmail.com</p>
+      </div>
+    </div>
+
+    <div class="content-block" style="padding: 0">
+      <div class="content-inner">
+        <h2>Activities</h2>
+        <div class="slider-container" id="sliderContainer">
+          <div class="slider-wrapper" id="sliderWrapper">
+            <!-- Slides will be injected -->
+          </div>
+          <div class="slider-nav">
+            <button id="prevBtn" aria-label="Previous Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              </svg>
+            </button>
+            <button id="nextBtn" aria-label="Next Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tables -->
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Curriculum for Bachelor of Mechanical Engineering</h2>
+        <!-- 1st Semester -->
+        <details class="custom-details" open>
+          <summary>1st Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">M 1001</td>
+                  <td data-label="Courses">Myanmar I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">3</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">7</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">E 1011</td>
+                  <td data-label="Courses">English I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EM 1001</td>
+                  <td data-label="Courses">Engineering Mathematics I</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">Ch 1001</td>
+                  <td data-label="Courses">Engineering Chemistry</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="FTF">6</td>
+                  <td data-label="NFTF">5</td>
+                  <td data-label="SLT">11</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ME 1001</td>
+                  <td data-label="Courses">Basic Engineering Drawing</td>
+                  <td data-label="L">1</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">3</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>11</td>
+                  <td>4</td>
+                  <td>6</td>
+                  <td>21</td>
+                  <td>21</td>
+                  <td>42</td>
+                  <td>15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 2nd Semester -->
+        <details class="custom-details">
+          <summary>2nd Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">M 2001</td>
+                  <td data-label="Courses">Myanmar II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">3</td>
+                  <td data-label="NFTF">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">E 2011</td>
+                  <td data-label="Courses">English II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EM 2002</td>
+                  <td data-label="Courses">Engineering Mathematics II</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">Ph 2001</td>
+                  <td data-label="Courses">Engineering Physics</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="FTF">6</td>
+                  <td data-label="NFTF">5</td>
+                  <td data-label="SLT">11</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ME 2011</td>
+                  <td data-label="Courses">Computer Aided Machines Drawing</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ME 2002</td>
+                  <td data-label="Courses">
+                    Industrial Safety and Workshop Practices
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>14</td>
+                  <td>4</td>
+                  <td>7</td>
+                  <td>25</td>
+                  <td>24</td>
+                  <td>49</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 3rd Semester -->
+        <details class="custom-details">
+          <summary>3rd Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 3001</td>
+                  <td data-label="Courses">English III</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 3003</td>
+                  <td data-label="Courses">English III</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME 3003</td>
+                  <td data-label="Courses">Engineering Thermodynamics I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ME 3012</td>
+                  <td data-label="Courses">Workshop Technology</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ME 3005</td>
+                  <td data-label="Courses">Engineering Mechanics (Statics)</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">EP 3013</td>
+                  <td data-label="Courses">Principle Electrical Engineering</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>14</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 4th Semester -->
+        <details class="custom-details">
+          <summary>4th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EM 4004</td>
+                  <td data-label="Courses">Engineering Mathematics IV</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 4015</td>
+                  <td data-label="Courses">Engineering Mechanics (Dynamics)</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME 4013</td>
+                  <td data-label="Courses">Engineering Thermodynamics II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ME 4022</td>
+                  <td data-label="Courses">Production Technology I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">Met 4071</td>
+                  <td data-label="Courses">Engineering Materials</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">EcE 4025</td>
+                  <td data-label="Courses">Applied Electrical Engineering</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>15</td>
+                  <td>6</td>
+                  <td>3</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    Industrial Practical Training: Four weeks during the
+                    vacation
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 5th Semester -->
+        <details class="custom-details">
+          <summary>5th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EM 5005</td>
+                  <td data-label="Courses">Engineering Mathematics V</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 5004</td>
+                  <td data-label="Courses">Strength of Materials I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME 5025</td>
+                  <td data-label="Courses">Theory of Machies I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ME 5006</td>
+                  <td data-label="Courses">Fluid Mechanics I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ME 5032</td>
+                  <td data-label="Courses">Production Technology II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ME 5000</td>
+                  <td data-label="Courses">Computer Programming</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>13</td>
+                  <td>5</td>
+                  <td>6</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 6th Semester -->
+        <details class="custom-details">
+          <summary>6th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EM 6006</td>
+                  <td data-label="Courses">Engineering Mathematics VI</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 6014</td>
+                  <td data-label="Courses">Strength of Materials II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME 6035</td>
+                  <td data-label="Courses">Theory of Machines II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ME 6016</td>
+                  <td data-label="Courses">Fluid Mechanics II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ME 6023</td>
+                  <td data-label="Courses">Heat Transfer</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ME 6042</td>
+                  <td data-label="Courses">Manufacturing System</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>13</td>
+                  <td>6</td>
+                  <td>5</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    Industrial Practical Training: Four weeks during the
+                    vacation
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 7th Semester -->
+        <details class="custom-details">
+          <summary>7th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">HSS 7011</td>
+                  <td data-label="Courses">Humanities and Social Sciences I</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">3</td>
+                  <td data-label="NFTF">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 7021</td>
+                  <td data-label="Courses">Design of Machine Elements I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">2</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME 7008</td>
+                  <td data-label="Courses">Engineering Management</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">3</td>
+                  <td data-label="NFTF">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ME 7045</td>
+                  <td data-label="Courses">Mechanical Vibration</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ME 7043</td>
+                  <td data-label="Courses">
+                    Refrigeration and Air-conditioning
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ME 7033</td>
+                  <td data-label="Courses">Internal Combustion Engines</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>13</td>
+                  <td>6</td>
+                  <td>3</td>
+                  <td>22</td>
+                  <td>22</td>
+                  <td>44</td>
+                  <td>16</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 8th Semester -->
+        <details class="custom-details">
+          <summary>8th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">HSS 8011</td>
+                  <td data-label="Courses">
+                    Humanities and Social Sciences II
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">3</td>
+                  <td data-label="NFTF">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 8031</td>
+                  <td data-label="Courses">Design of Machine Elements II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">2</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME 8018</td>
+                  <td data-label="Courses">Project Management</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">3</td>
+                  <td data-label="NFTF">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ME 8063</td>
+                  <td data-label="Courses">Gas Turbine Theory</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">Elective I</td>
+                  <td data-label="Courses">
+                    Industrial Automation Turbomachinery Refrigeration and
+                    Airconditioning II Biomass Technology & Application
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>11</td>
+                  <td>5</td>
+                  <td>2</td>
+                  <td>18</td>
+                  <td>18</td>
+                  <td>36</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    Elective I: Students are required to study one elective
+                    subject based on their chosen track During the vacation,
+                    students must carry out Simple Design Project (Capstone).
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 9th Semester -->
+        <details class="custom-details">
+          <summary>9th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">HSS 9011</td>
+                  <td data-label="Courses">Laws and Regulations</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">2</td>
+                  <td data-label="NFTF">2</td>
+                  <td data-label="SLT">4</td>
+                  <td data-label="Credit Points">1</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 9028</td>
+                  <td data-label="Courses">Engineering Economics</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">3</td>
+                  <td data-label="NFTF">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME 9010</td>
+                  <td data-label="Courses">Research Methodology</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">2</td>
+                  <td data-label="NFTF">2</td>
+                  <td data-label="SLT">4</td>
+                  <td data-label="Credit Points">1</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">Electives II</td>
+                  <td data-label="Courses">
+                    Agribusiness Management Sustainable Energy Finite Element
+                    Method Measurement and Instrumentation
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ME 9041</td>
+                  <td data-label="Courses">Integrated Design Project</td>
+                  <td data-label="L">0</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="FTF">0</td>
+                  <td data-label="NFTF">0</td>
+                  <td data-label="SLT">0</td>
+                  <td data-label="Credit Points">6</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ME 9020</td>
+                  <td data-label="Courses">Attachment Program</td>
+                  <td data-label="L"></td>
+                  <td data-label="T"></td>
+                  <td data-label="P"></td>
+                  <td data-label="FTF"></td>
+                  <td data-label="NFTF"></td>
+                  <td data-label="SLT"></td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>8</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>11</td>
+                  <td>11</td>
+                  <td>22</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    Elective II: Students are required to study one elective
+                    subject based on their chosen track
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 10th Semester -->
+        <details class="custom-details">
+          <summary>10th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">Elective III</td>
+                  <td data-label="Courses">
+                    Quality Control & Quality Management Automobile Engineering
+                    Computational Fluid Dynamics Energy Management
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="FTF">4</td>
+                  <td data-label="NFTF">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 10030</td>
+                  <td data-label="Courses">Graduation Thesis</td>
+                  <td data-label="L">-</td>
+                  <td data-label="T">-</td>
+                  <td data-label="P">-</td>
+                  <td data-label="FTF">-</td>
+                  <td data-label="NFTF">-</td>
+                  <td data-label="SLT">-</td>
+                  <td data-label="Credit Points">9</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>8</td>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    Elective III: Students are required to study one elective
+                    subject based on their chosen track
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Summary -->
+        <details class="custom-details" open>
+          <summary>Summary</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Course</th>
+                  <th>1st to Final</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Course">Credit Points (General Education)</td>
+                  <td data-label="1st to Final">46</td>
+                </tr>
+                <tr>
+                  <td data-label="Course">Credit Points (Engineering)</td>
+                  <td data-label="1st to Final">117</td>
+                </tr>
+                <tr>
+                  <td data-label="Course">Credit Points (Total)</td>
+                  <td data-label="1st to Final">163</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/mech-field-trip-2024-2025.png.png",
+            caption: "Field Trip (2024-2025)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Fitting-Shop-Practical-Class.png",
+            caption: "Fitting Shop Practical Class",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Lathe-Machine-Practical-Class.png",
+            caption: "Lathe Machine Practical Class",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/mech-student-autocad-drawing-training.png",
+            caption: "Student AutoCAD Drawing Training",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Solid-Mechanics-Lab.png",
+            caption: "Solid Mechanics Lab",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Welding-Shop-Practical-Class.png",
+            caption: "Welding Shop Practical Class",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/2024-2025-Academic-Year-Mechanical-မေဂျာဘောလုံး-အားကစားသမားများ.png",
+            caption: "Mechanical Major ဘောလုံးအားကစားသမားများ (2024-2025)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/2024-2025-Mechanical-major-students-ထမနဲထိုး-ပြိုင်ပွဲ.png",
+            caption: "Mechanical Major Students ထမနဲထိုးပြိုင်ပွဲ(2024-2025)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/2024-2025-Mechanical-Fresher-Welcome.png",
+            caption: "Mechanical Fresher Welcome(2024-2025)",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide";
+          if (idx === 0) slide.classList.add("active");
+          slide.innerHTML = `
+        <img src="${img.src}" alt="Slide ${idx + 1}">
+        <div class="caption">${img.caption}</div>
+      `;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          let next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+        }
+
+        function prevSlide() {
+          let prev = (currentIndex - 1 + slides.length) % slides.length;
+          showSlide(prev);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        });
+
+        function handleSwipe() {
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        }
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>

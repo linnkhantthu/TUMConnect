@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Mining Engineering</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+
+      /* Image Slider Container */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>History</h2>
+        <p>
+          Petroleum Engineering Department in Technological University Mandalay
+          has been established and opened in 2002. Therefore, Petroleum
+          Engineering Department of TUM is 16 years old in engineering education
+          service. Bachelor Degree in engineering and technology has been
+          offered since. The petroleum industry is the backbone of the economy
+          of our nation. <br />
+          University land area is 65.37 acres (26.45 thousand square meters) and
+          located at Patheingyi township of Mandalay City. University has over
+          400 staffs and about 2000 undergraduate students who are learning
+          their respective engineering and architecture program. Our Petroleum
+          Engineering Department have 50 students who are learning in
+          undergraduate programme receptively.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>
+          Our vision is to be recognizing as an international academic
+          department and an excellent centre of research for the field of
+          petroleum and natural gas engineering. This recognition will be for
+          the leadership, innovation and quality of our research, teaching and
+          training programmmes in petroleum upstream activities.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <p>
+          The Petroleum Engineering Programme has the primary mission of
+          providing a quality engineering education with To become a leading
+          international center of excellence in education, training, research
+          and professional service dedicated to serving the competence, training
+          and technology development needs of the petroleum industry.
+        </p>
+        <ul>
+          <li>
+            To produce undergraduate and graduate levels for successful, and
+            socially and ethically responsible careers in the worldwide
+            petroleum industry
+          </li>
+          <li>
+            To provide a platform for life-long learning while also emphasizing
+            the importance of interdisciplinary approach, ethical conduct,
+            health, safety and environmental issues.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Degree Awards</h2>
+        <ul>
+          <li>Bachelor of Engineering B.E (Petroleum Engineering)</li>
+          <li>Master of Engineering M.E (Petroleum Engineering)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Research Areas</h2>
+        <ul>
+          <li>Drilling Engineering</li>
+          <li>Petroleum Production</li>
+          <li>Reservoir Engineering</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Laboratory and Workshops</h2>
+        <ul>
+          <li>Drilling Lab</li>
+          <li>Production Lab</li>
+          <li>Reservoir Lab</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

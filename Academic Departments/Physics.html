@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Engineering Physics</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+
+      /* Image Slider Container */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>History</h2>
+        <p>
+          The Department of Engineering Physics offers a wide range of engaging
+          real-world applications that give students a clear and logical
+          exposition of the fundamental ideas and principles. Since the opening
+          of the Government Technical Institute in Mandalay in 1955, the
+          Department of Engineering Physics has existed. In 1995, the department
+          launched its undergraduate program, and in 2008, it launched its
+          post-graduate program. As a result, TUM's Department of Engineering
+          Physics has been providing engineering education for 63 years.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>
+          To teach and train engineering students in each section of theory and
+          experiment of engineering physics subject in supporting to become the
+          essential technological experts for socio-economic development.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <ul>
+          <li>
+            • To provide the highly qualified engineers with a clear and logical
+            presentation of the basic concepts and principle of physics.
+          </li>
+          <li>
+            • To educate and train students of high caliber and quality that can
+            emerge excellent engineers systematically.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Objectives</h2>
+        <ul>
+          <li>To improve the student pass rate up to 75.5%.</li>
+          <li>
+            • To support the learning and teaching processes of practical task
+            with respect to theory for generating of qualified engineers in all
+            major field.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Performance Indicator for Graduate Attributes</h2>
+        <ul>
+          <li>GA1 - Engineering Knowledge</li>
+          <li>GA2 - Problem Analysis</li>
+          <li>GA3 - Investigation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Laboratories</h2>
+        <p>
+          Laboratories and particles are important part of the Engineering
+          Physics curriculums. Department of Engineering has the following
+          laboratories:
+        </p>
+        <ul>
+          <li>Mechanics Lab</li>
+          <li>Electricity & Magnetism Lab</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Work Instruction</h2>
+        <ul>
+          <li>To teach some theories by demonstrating in the laboratory.</li>
+          <li>
+            To train to be comprehension students with effective ways in
+            teaching.
+          </li>
+          <li>
+            To examine student’s quality whenever they have taught one lesson.
+          </li>
+          <li>To do assignment papers to be understand theory to students.</li>
+          <li>To use just and effective assessment system in giving test.</li>
+          <li>To attend advanced training to raise teacher’s quality.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Practical Course Work</h2>
+        <p>Laboratory for KG+12 (10 Experiments)</p>
+        <table>
+          <thead>
+            <tr>
+              <th rowspan="2">Laboratory Name</th>
+              <th rowspan="2">Experiments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Laboratory Name">
+                Introduction to Engineering Physics (Mechanics, Waves and
+                Thermodynamics)
+              </td>
+              <td data-label="Experiments">
+                Spherometer, Joules’ Calorimeter, Sonometer
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Laboratory Name">
+                Electricity and Magnetism Lab
+              </td>
+              <td data-label="Experiments">
+                <ul>
+                  <li>Kirchhoff’s Rule</li>
+                  <li>
+                    Magnetic Field of a current Loop (Using Tangent
+                    Galvanometer)
+                  </li>
+                  <li>Meter-Bridge (or) Carrey Forester Bridge</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Laboratory Name">Light & Optics Lab</td>
+              <td data-label="Experiments">
+                <ul>
+                  <li>Spectrometer & Diffraction Grating</li>
+                  <li>Determination of Laser Wavelength</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Laboratory Name">Diode characteristics</td>
+              <td data-label="Experiments">
+                <ul>
+                  <li>Diode characteristics</li>
+                  <li>Oscilloscope</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="content-block" style="padding: 0">
+      <div class="content-inner">
+        <h2>Activities</h2>
+        <div class="slider-container" id="sliderContainer">
+          <div class="slider-wrapper" id="sliderWrapper">
+            <!-- Slides will be injected -->
+          </div>
+          <div class="slider-nav">
+            <button id="prevBtn" aria-label="Previous Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              </svg>
+            </button>
+            <button id="nextBtn" aria-label="Next Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tables -->
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Curriculum for Bachelor of Mechanical Engineering</h2>
+        <!-- Part-4 (Electricity & Magnetism) -->
+        <details class="custom-details" open>
+          <summary>B.E and B.Arch (First Year)</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>FTF</th>
+                  <th>NFTF</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EPh 2001</td>
+                  <td data-label="Courses">Engineering Physics</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="FTF">-</td>
+                  <td data-label="NFTF">-</td>
+                  <td data-label="SLT">-</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>4</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>Learning Objective</h2>
+          <p>
+            This course will reinforce students’ understanding of physics from
+            A-level. It will encourage critical thinking by emphasizing on
+            reasoning, understanding the relationship between concepts and
+            seeing the relevance of physics to everyday life. It will teach
+            strategies for problem solving that can be applied to real world
+            situations. After the study, students will be equipped with the
+            basic knowledge for further study in the broad field of engineering.
+          </p>
+          <h2>Contents</h2>
+          <ul>
+            <li>Electricity and Magnetism</li>
+            <li>Light and Optics</li>
+            <li>Modern Physics</li>
+          </ul>
+
+          <h3>Part-4 (Electricity & Magnetism)</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Topic</th>
+                  <th>Subtopics</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Topic">
+                    Continuous Charge Distributions and Gauss’s Law
+                  </td>
+                  <td data-label="Subtopics">
+                    Electric Field of a Continuous Charge Distribution, Electric
+                    Flux, Gauss's Law, Application of Gauss's Law to Various
+                    Charge Distribution
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Topic">Current & Resistance</td>
+                  <td data-label="Subtopics">Superconductors</td>
+                </tr>
+                <tr>
+                  <td data-label="Topic">Alternating-Current Circuits</td>
+                  <td data-label="Subtopics">
+                    AC Sources, Resistors in an AC Circuit, Inductors in an AC
+                    Circuit, Capacitors in an AC Circuit, The RLC Series
+                    Circuit, Power in an AC Circuit, Resonance in a Series RLC
+                    Circuit
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Topic">Magnetic Fields</td>
+                  <td data-label="Subtopics">
+                    Particle in a Field (Magnetic), Motion of a Charge Particle
+                    in a Uniform Magnetic Field, Application involving Charged
+                    Particle Moving in a Magnetic Field, Magnetic Force acting
+                    on a current-carrying Conductor, Torque on a Current loop in
+                    a Uniform Magnetic Field, The Hall Effect
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Topic">Sources of the Magnetic Field</td>
+                  <td data-label="Subtopics">
+                    The Biot-Savart Law, The Magnetic Force Between Two Parallel
+                    Conductors, Ampere’s Law, Magnetism in Matter
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Topic">Electromagnetic Waves</td>
+                  <td data-label="Subtopics">
+                    Displacement Current and the General Form of Ampere’s Law,
+                    Maxwell’s Equations and Hertz’s Discoveries, Plane
+                    Electromagnetic Waves, Energy carried by Electromagnetic
+                    Waves, Momentum and Radiation Pressure, Production of
+                    Electromagnetic Waves by an Antenna, The Spectrum of
+                    Electromagnetic Waves
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Part-5 (Light and Optics) -->
+        <details class="custom-details">
+          <summary>Part-5 (Light and Optics)</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Topic</th>
+                  <th>Subtopics</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Topic">Wave Optics</td>
+                  <td data-label="Subtopics">
+                    Change of Phase Due to Reflection, Interference in Thin
+                    Films, The Michelson Interferometer
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Topic">
+                    Diffraction Patterns and Polarization
+                  </td>
+                  <td data-label="Subtopics">
+                    Diffraction of X-Rays by Crystals , Polarization of Light
+                    Waves
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Part-6 (Modern Physics) -->
+        <details class="custom-details">
+          <summary>Part-6 (Modern Physics)</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Topic</th>
+                  <th>Subtopics</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Topic">Introduction to Quantum Physics</td>
+                  <td data-label="Subtopics">
+                    The Compton Effect, The Nature of Electromagnetic Wave, The
+                    Wave Properties of Particles, A New Model: The Quantum
+                    Particle, The Double-Slit Experiment Revisited, The
+                    Uncertainty Principle
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Topic">Quantum Mechanics</td>
+                  <td data-label="Subtopics">
+                    The Wave Function, Analysis Model : Quantum Particle Under
+                    Boundary Conditions, The Schrödinger Equation, Tunneling
+                    Through a Potential Energy Barrier, Applications of
+                    Tunneling, The Simple Harmonic Oscillator
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Topic">Atomic Physics</td>
+                  <td data-label="Subtopics">
+                    More on Atomic Spectra : Visible and X-Ray, Spontaneous and
+                    Stimulated Transition, Lasers
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Topic">Molecules and Solids</td>
+                  <td data-label="Subtopics">
+                    Electrical Conduction in metals, insulators and
+                    semiconductors, Semiconductor Devices
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Topic">Nuclear Physics</td>
+                  <td data-label="Subtopics">
+                    The Decay Processes, Nuclear Reactions, Nuclear Fission,
+                    Nuclear Reactors, Nuclear Fusion, Biological Radiation
+                    Damage, Uses of Radiation from the Nucleus, Nuclear Magnetic
+                    Resonance and Magnetic Resonance Imaging
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Picture1.png",
+            caption: "Activites",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Picture2.png",
+            caption: "Activites",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Picture3.png",
+            caption: "Activities",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Picture4.png",
+            caption: "Activities",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Picture5.png",
+            caption: "Activities",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Picture6.png",
+            caption: "Activities",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide";
+          if (idx === 0) slide.classList.add("active");
+          slide.innerHTML = `
+        <img src="${img.src}" alt="Slide ${idx + 1}">
+        <div class="caption">${img.caption}</div>
+      `;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          let next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+        }
+
+        function prevSlide() {
+          let prev = (currentIndex - 1 + slides.length) % slides.length;
+          showSlide(prev);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        });
+
+        function handleSwipe() {
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        }
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>

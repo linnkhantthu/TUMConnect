@@ -1,0 +1,3114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Electrical Power Engeneering</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+
+      /* Image Slider Container */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>History</h2>
+        <p>
+          Department of Electrical Power Engineering ( EP ) provides and
+          Electrical Powe Engineering education to our gratuate and post
+          graduate students . The Department of Electrical Power Engineering has
+          been established since the Government Technical Institute , Mandalay
+          was open in 1955 . Department started Under Graduate program in the
+          year 1995 and the Post –Graduation Programme was started in the year
+          2008 . Therefore , Department of Electrical Power Engineering of TUM
+          is 63 years old in engineering education service.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>
+          The department excepts, with a view to develop the quality of the
+          university of technology, make necessary research through cooperation
+          of local and foreign companies that may give aids to the sectors
+          concerned.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <ul>
+          <li>
+            In order to develop technology and economy of the state, the
+            department excepts to train and produce skilled workers and
+            inventors in vocational fields.
+          </li>
+          <li>
+            To becomes competent teachers, to continuously study and learn.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Objectives</h2>
+        <ul>
+          <li>
+            To annually produce 80% of highly qualified electrical power
+            engineers.
+          </li>
+          <li>
+            To achieve at least 95% customer satisfaction in teaching and
+            learning.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Degree Awards</h2>
+        <ul>
+          <li>Bachelor of Engineering (Electrical Power)</li>
+          <li>Master of Engineering (Electrical Power)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Research Areas</h2>
+        <ul>
+          <li>Power System</li>
+          <li>Electrical Machine</li>
+          <li>Electrical Machine and Control</li>
+          <li>Renewable Energy</li>
+          <li>Electrical Safety</li>
+          <li>
+            Latest Research Area / Field:
+            <ul>
+              <li>High voltage</li>
+              <li>Lighting and Illumination</li>
+              <li>Energy Storage</li>
+              <li>Programmable Logic Control</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Laboratories and Workshops</h2>
+        <p>
+          Laboratories and practical are important part of the Electrical Power
+          Engineering curriculums. Department of Electrical Power Engineering
+          has twelve laboratories:
+        </p>
+        <ul>
+          <li>Electrotechnology Lab</li>
+          <li>Electrical Measurement Lab</li>
+          <li>Electrical Machine Lab</li>
+          <li>Electrical Machine Control Lab</li>
+          <li>PLC Lab</li>
+          <li>Power Electronics Lab</li>
+          <li>Electric Motor Drive Lab</li>
+          <li>Power System Lab</li>
+          <li>High Voltage Lab</li>
+          <li>Electrical Wiring and Installation Lab</li>
+          <li>Lighting and Illumination Lab</li>
+          <li>Computer Lab</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block" style="padding: 0">
+      <div class="content-inner">
+        <h2>Activities</h2>
+        <div class="slider-container" id="sliderContainer">
+          <div class="slider-wrapper" id="sliderWrapper">
+            <!-- Slides will be injected -->
+          </div>
+          <div class="slider-nav">
+            <button id="prevBtn" aria-label="Previous Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              </svg>
+            </button>
+            <button id="nextBtn" aria-label="Next Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tables -->
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Curriculum for Academic Year</h2>
+        <!-- First Year -->
+        <!-- 1st Sem -->
+        <details class="custom-details" open>
+          <summary>First Year</summary>
+          <div class="table-container">
+            <p>Semester One</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">M11011</td>
+                  <td data-label="Courses">Myanmar</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">2</td>
+                  <td data-label="Credit Points">1.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">E11011</td>
+                  <td data-label="Courses">English</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EM11011</td>
+                  <td data-label="Courses">Engineering Mathematics I</td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">4.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">E.Ch 11011</td>
+                  <td data-label="Courses">Engineering Chemistry I</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Tot">6</td>
+                  <td data-label="Credit Points">4.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">E.Ph 11011</td>
+                  <td data-label="Courses">Engineering Physics I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ME 11011</td>
+                  <td data-label="Courses">Basic Engineering Drawing I</td>
+                  <td data-label="L">1</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">EP 11011</td>
+                  <td data-label="Courses">
+                    Principle of Electrical Engineering I
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>16</td>
+                  <td>4</td>
+                  <td>7</td>
+                  <td>27</td>
+                  <td>21.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Sec Sem -->
+          <div class="table-container">
+            <p>Semester Two</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">M12011</td>
+                  <td data-label="Courses">Myanmar</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">2</td>
+                  <td data-label="Credit Points">1.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">E12011</td>
+                  <td data-label="Courses">English</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EM12002</td>
+                  <td data-label="Courses">Engineering Mathematics II</td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">4.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">E.Ch12012</td>
+                  <td data-label="Courses">Engineering Chemistry II</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Tot">6</td>
+                  <td data-label="Credit Points">4.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">E.Ph12011</td>
+                  <td data-label="Courses">Engineering Physics II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ME12011</td>
+                  <td data-label="Courses">Basic Engineering Drawing II</td>
+                  <td data-label="L">1</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">EP12011</td>
+                  <td data-label="Courses">
+                    Principle of Electrical Engineering II
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>16</td>
+                  <td>4</td>
+                  <td>7</td>
+                  <td>27</td>
+                  <td>21.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 2nd Year -->
+        <details class="custom-details">
+          <summary>Second Year</summary>
+          <div class="table-container">
+            <p>Semester One</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E21011</td>
+                  <td data-label="Courses">English</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM21003</td>
+                  <td data-label="Courses">Engineering Mathematics III</td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">4.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EP21011</td>
+                  <td data-label="Courses">
+                    Electrical Engineering Circuit Analysis I
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP21014</td>
+                  <td data-label="Courses">Basic Electronics I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">EP21021</td>
+                  <td data-label="Courses">Electro Mechanics I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">EP21026</td>
+                  <td data-label="Courses">
+                    Generation, Transmission and Distribution
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">ME21015</td>
+                  <td data-label="Courses">Engineering Mechanics I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>16</td>
+                  <td>4</td>
+                  <td>3</td>
+                  <td>23</td>
+                  <td>19.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Sec Sem -->
+          <div class="table-container">
+            <p>Semester Two</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E22011</td>
+                  <td data-label="Courses">English</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM22004</td>
+                  <td data-label="Courses">Engineering Mathematics IV</td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">4.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EP21011</td>
+                  <td data-label="Courses">
+                    Electrical Engineering Circuit Analysis II
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP22014</td>
+                  <td data-label="Courses">Basic Electronics II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">EP22021</td>
+                  <td data-label="Courses">Electro Mechanics II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">EP22026</td>
+                  <td data-label="Courses">
+                    Generation, Transmission and Distribution
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">ME22015</td>
+                  <td data-label="Courses">Engineering Mechanics II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>16</td>
+                  <td>4</td>
+                  <td>3</td>
+                  <td>23</td>
+                  <td>19.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 3rd Year -->
+        <details class="custom-details">
+          <summary>Second Year</summary>
+          <div class="table-container">
+            <p>Semester One</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E31011</td>
+                  <td data-label="Courses">English</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM31005</td>
+                  <td data-label="Courses">Engineering Mathematics V</td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">4.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME31034</td>
+                  <td data-label="Courses">
+                    Mechanical Engineering Fundamental I
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP31011</td>
+                  <td data-label="Courses">
+                    Electrical Engineering Circuit Analysis III
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">EP31014</td>
+                  <td data-label="Courses">Power Electronics I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">EP31021</td>
+                  <td data-label="Courses">
+                    Electrical Machine and Operation I
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">EP31033</td>
+                  <td data-label="Courses">Electromagnetic Field I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">8</td>
+                  <td data-label="Code">EP31025</td>
+                  <td data-label="Courses">
+                    Electrical Measurement Instrumentation
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>18</td>
+                  <td>4</td>
+                  <td>4</td>
+                  <td>26</td>
+                  <td>22</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Sec Sem -->
+          <div class="table-container">
+            <p>Semester Two</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E32011</td>
+                  <td data-label="Courses">English</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM32006</td>
+                  <td data-label="Courses">Engineering Mathematics VI</td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">4.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME32034</td>
+                  <td data-label="Courses">
+                    Mechanical Engineering Fundamental II
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP32011</td>
+                  <td data-label="Courses">
+                    Electrical Engineering Circuit Analysis IV
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">EP32014</td>
+                  <td data-label="Courses">Power Electronics II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">EP32021</td>
+                  <td data-label="Courses">
+                    Electrical Machine and Operation II
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">EP32033</td>
+                  <td data-label="Courses">Electromagnetic Field II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">8</td>
+                  <td data-label="Code">EP32034</td>
+                  <td data-label="Courses">
+                    Electrical Design, Estimating and Costing
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>18</td>
+                  <td>4</td>
+                  <td>4</td>
+                  <td>26</td>
+                  <td>22</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 4th Year -->
+        <details class="custom-details">
+          <summary>Fourth Year</summary>
+          <div class="table-container">
+            <p>Semester One</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 41011</td>
+                  <td data-label="Courses">English</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 41007</td>
+                  <td data-label="Courses">Engineering Mathematics VII</td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">4.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EP 41027</td>
+                  <td data-label="Courses">Linear Control System I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP 41028</td>
+                  <td data-label="Courses">Programmable Logic Control I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">EP 41021</td>
+                  <td data-label="Courses">Electrical Machine Design I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">EP 41036</td>
+                  <td data-label="Courses">
+                    Design & Layout of Power System I
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">EP 41042</td>
+                  <td data-label="Courses">Power System Analysis I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">8</td>
+                  <td data-label="Code">EcE 41024</td>
+                  <td data-label="Courses">Computer Science</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>18</td>
+                  <td>6</td>
+                  <td>2</td>
+                  <td>26</td>
+                  <td>22</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Sec Sem -->
+          <div class="table-container">
+            <p>Semester Two</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 41011</td>
+                  <td data-label="Courses">English</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 42008</td>
+                  <td data-label="Courses">Engineering Mathematics VIII</td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">4.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EP 42027</td>
+                  <td data-label="Courses">Linear Control System II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP 42028</td>
+                  <td data-label="Courses">Programmable Logic Control II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">EP 42021</td>
+                  <td data-label="Courses">Electrical Machine Design II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">EP 42036</td>
+                  <td data-label="Courses">
+                    Design & Layout of Power System II
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">EP 42042</td>
+                  <td data-label="Courses">Power System Analysis II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">8</td>
+                  <td data-label="Code">EcE 42024</td>
+                  <td data-label="Courses">Computer Science</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>18</td>
+                  <td>6</td>
+                  <td>2</td>
+                  <td>26</td>
+                  <td>22</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 5th Year -->
+        <details class="custom-details">
+          <summary>Fifth Year</summary>
+          <div class="table-container">
+            <p>Semester One</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EP 51017</td>
+                  <td data-label="Courses">Modern Control System I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EP 51014</td>
+                  <td data-label="Courses">Electrical Machine and Control I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EP 51022</td>
+                  <td data-label="Courses">Power System Protection I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP 51002</td>
+                  <td data-label="Courses">Power System Stability</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">EP 51043</td>
+                  <td data-label="Courses">
+                    Electromechanical Energy Conversion I
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>10</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>15</td>
+                  <td>12.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Sec Sem -->
+          <div class="table-container">
+            <p>Semester Two</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EP 52017</td>
+                  <td data-label="Courses">Modern Control System II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EP 52014</td>
+                  <td data-label="Courses">
+                    Electrical Machine and Control II
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EP 52022</td>
+                  <td data-label="Courses">Power System Protection II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP 52002</td>
+                  <td data-label="Courses">
+                    Economic Operation of Power System
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">EP 52043</td>
+                  <td data-label="Courses">
+                    Electromechanical Energy Conversion II
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">EP 52007</td>
+                  <td data-label="Courses">
+                    Integrated Designed Project (IDP)
+                  </td>
+                  <td data-label="L">-</td>
+                  <td data-label="T">-</td>
+                  <td data-label="P">-</td>
+                  <td data-label="Tot">-</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>10</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>15</td>
+                  <td>15.5</td>
+                </tr>
+                <tr>
+                  <td colspan="8">
+                    Remark: (1) EP 52007 အတွက် အောင်ရှုံးသတ်မှတ်ချက်သည် IDP
+                    လုပ်ဆောင်ချက်ပြီး/မပြီးဖြင့်သာ သတ်မှတ်သည်။
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 6th Year -->
+        <details class="custom-details">
+          <summary>Sixth Year</summary>
+          <div class="table-container">
+            <p>Semester One</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">HSS-61011</td>
+                  <td data-label="Courses">Humanities and Social Science</td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EP-61033</td>
+                  <td data-label="Courses">
+                    Computer Aided Electrical Engineering
+                  </td>
+                  <td data-label="L">1</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">2</td>
+                  <td data-label="Credit Points">1.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EP-61014</td>
+                  <td data-label="Courses">Electrical Safety and Ethic</td>
+                  <td data-label="L">1</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">1</td>
+                  <td data-label="Credit Points">1</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP-61012</td>
+                  <td data-label="Courses">Power System Reliability</td>
+                  <td data-label="L">1</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">1</td>
+                  <td data-label="Credit Points">1</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>8</td>
+                  <td>7.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Sec Sem -->
+          <div class="table-container">
+            <p>Semester Two</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EP 62005</td>
+                  <td data-label="Courses">
+                    Industrial Training/Internship Program
+                  </td>
+                  <td data-label="L">-</td>
+                  <td data-label="T">-</td>
+                  <td data-label="P">-</td>
+                  <td data-label="Tot">-</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EP 62015</td>
+                  <td data-label="Courses">Mini Thesis/Final Year Project</td>
+                  <td data-label="L">-</td>
+                  <td data-label="T">-</td>
+                  <td data-label="P">-</td>
+                  <td data-label="Tot">-</td>
+                  <td data-label="Credit Points">9</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>13</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- ME -->
+        <details class="custom-details">
+          <summary>Electrical Power Engineering (EP) for ME</summary>
+          <div class="table-container">
+            <p>Semester One</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E.71001</td>
+                  <td data-label="Courses">English</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM.71009</td>
+                  <td data-label="Courses">
+                    Advanced Engineering Mathematics I
+                  </td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EP.71001</td>
+                  <td data-label="Courses">Power System Economics</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP.71002</td>
+                  <td data-label="Courses">Power System Analysis</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">EP.71003</td>
+                  <td data-label="Courses">Power System Protection</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>16</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>20</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Sec Sem -->
+          <div class="table-container">
+            <p>Semester Two</p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E.72001</td>
+                  <td data-label="Courses">English</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM.72010</td>
+                  <td data-label="Courses">
+                    Advanced Engineering Mathematics II
+                  </td>
+                  <td data-label="L">4</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EP.72004</td>
+                  <td data-label="Courses">Discrete-Time Control System</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EP.72005</td>
+                  <td data-label="Courses">
+                    Renewable and Efficient Electric Power System
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">EP.72006</td>
+                  <td data-label="Courses">Electrical Power System Quality</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>16</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>20</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>
+          နည်းပညာတက္ကသိုလ်များတွင် KG+12 စနစ်သစ်နှင့် လိုက်လျောညီထွေဖြစ်မည့်
+          လျာထား သင်ရိုးညွှန်းတမ်း နှင့် သင်ရိုးမာတိကာ
+        </h2>
+
+        <!-- 1st Sem -->
+        <details class="custom-details" open>
+          <summary>1st Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Year</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">၁</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">M 1001</td>
+                  <td data-label="Courses">Myanmar I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၂</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">E 1001</td>
+                  <td data-label="Courses">English I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၃</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">ECh 1001</td>
+                  <td data-label="Courses">Engineering Chemistry</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၄</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">EM 1001</td>
+                  <td data-label="Courses">Engineering Mathematics I</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၅</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">EP 1014</td>
+                  <td data-label="Courses">Basic Electronics</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၆</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">ME 1011</td>
+                  <td data-label="Courses">Basic Engineering Drawing (EF)</td>
+                  <td data-label="L">1</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">3</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>14</td>
+                  <td>5</td>
+                  <td>7</td>
+                  <td>25</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 2nd Sem -->
+        <details class="custom-details">
+          <summary>2nd Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Year</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">၁</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">M 2001</td>
+                  <td data-label="Courses">Myanmar II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၂</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">E 2001</td>
+                  <td data-label="Courses">English II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၃</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">EPh 2001</td>
+                  <td data-label="Courses">Engineering Physics</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၄</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">EM 2001</td>
+                  <td data-label="Courses">Engineering Mathematics II</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၅</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">ME 2012</td>
+                  <td data-label="Courses">Workshop Practice</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၆</td>
+                  <td data-label="Year">ပထမနှစ်</td>
+                  <td data-label="Code">EP 2014</td>
+                  <td data-label="Courses">Digital Electronics</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>15</td>
+                  <td>5</td>
+                  <td>6</td>
+                  <td>25</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 3rd Sem -->
+        <details class="custom-details">
+          <summary>3rd Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Year</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">၁</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">E 3001</td>
+                  <td data-label="Courses">English III</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၂</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">EM 3011</td>
+                  <td data-label="Courses">Engineering Mathematics III</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၃</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">EP 3033</td>
+                  <td data-label="Courses">Electromagnetic Field</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၄</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">EP 3011</td>
+                  <td data-label="Courses">
+                    Electrical Engineering Circuit Analysis I
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၅</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">ME 3015</td>
+                  <td data-label="Courses">Engineering Mechanics I</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၆</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">EP 3034</td>
+                  <td data-label="Courses">Lighting Design and Illumination</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>14</td>
+                  <td>6</td>
+                  <td>4</td>
+                  <td>24</td>
+                  <td>17</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 4th Sem -->
+        <details class="custom-details">
+          <summary>4th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Year</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">၁</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">EM 4011</td>
+                  <td data-label="Courses">Engineering Mathematics IV</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၂</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">EP 4034</td>
+                  <td data-label="Courses">
+                    Electrical Design, Estimating and Costing
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၃</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">EP 4021</td>
+                  <td data-label="Courses">Electromechanics</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၄</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">EP 4011</td>
+                  <td data-label="Courses">
+                    Electrical Engineering Circuit Analysis II
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၅</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">EP 4033</td>
+                  <td data-label="Courses">Computer Programming Language</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၆</td>
+                  <td data-label="Year">ဒုတိယ နှစ်</td>
+                  <td data-label="Code">ME 4015</td>
+                  <td data-label="Courses">Engineering Mechanics II</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">5</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>14</td>
+                  <td>6</td>
+                  <td>5</td>
+                  <td>25</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 5th Sem -->
+        <details class="custom-details">
+          <summary>5th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Year</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">၁</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">EM 5005</td>
+                  <td data-label="Courses">Engineering Mathematics V</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၂</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">EP 5026</td>
+                  <td data-label="Courses">Power Generation</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၃</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">ME 5034</td>
+                  <td data-label="Courses">
+                    Mechanical Engineering Fundamental I
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၄</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">EP 5021</td>
+                  <td data-label="Courses">Electrical Machine I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၅</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">EP 5014</td>
+                  <td data-label="Courses">Power Electronics I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၆</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">EP 5012</td>
+                  <td data-label="Courses">
+                    Electrical Properties of Material
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>13</td>
+                  <td>6</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>17</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 6th Sem -->
+        <details class="custom-details">
+          <summary>6th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Year</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">၁</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">EM 6005</td>
+                  <td data-label="Courses">Engineering Mathematics VI</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၂</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">EP 6028</td>
+                  <td data-label="Courses">Industrial Automation</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၃</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">EP 6026</td>
+                  <td data-label="Courses">
+                    Power Transmission and Distribution
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၄</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">EP 6021</td>
+                  <td data-label="Courses">Electrical Machine II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၅</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">ME 6034</td>
+                  <td data-label="Courses">
+                    Mechanical Engineering Fundamental II
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၆</td>
+                  <td data-label="Year">တတိယနှစ်</td>
+                  <td data-label="Code">EP 6015</td>
+                  <td data-label="Courses">Renewable Energy System</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>13</td>
+                  <td>6</td>
+                  <td>5</td>
+                  <td>24</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 7th Sem -->
+        <details class="custom-details">
+          <summary>7th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Year</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">၁</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">HSS 7011</td>
+                  <td data-label="Courses">Humanities and Social Sciences</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၂</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 7017</td>
+                  <td data-label="Courses">Linear Control System</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၃</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 7015</td>
+                  <td data-label="Courses">Energy Storage</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၄</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 7042</td>
+                  <td data-label="Courses">Power System Analysis</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၅</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 7041</td>
+                  <td data-label="Courses">High Voltage Engineering</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၆</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 7014</td>
+                  <td data-label="Courses">Electric Motor Drives I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>15</td>
+                  <td>5</td>
+                  <td>2</td>
+                  <td>22</td>
+                  <td>16</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 8th Sem -->
+        <details class="custom-details">
+          <summary>8th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Year</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">၁</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">GE 8011</td>
+                  <td data-label="Courses">
+                    Entrepreneurship Development and Project Management
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">2</td>
+                  <td data-label="Credit Points">1</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၂</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 8001</td>
+                  <td data-label="Courses">Safety, Law and Ethics</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၃</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 8002</td>
+                  <td data-label="Courses">Power System Stability</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၄</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 8022</td>
+                  <td data-label="Courses">Power System Protection</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၅</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 8014</td>
+                  <td data-label="Courses">Electric Motor Drives II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Tot">4</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၆</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 8017</td>
+                  <td data-label="Courses">Modern Control System</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>13</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>19</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၇</td>
+                  <td data-label="Year">စတုတ္ထ နှစ်</td>
+                  <td data-label="Code">EP 8001</td>
+                  <td data-label="Courses">Internship Programme (Core)</td>
+                  <td data-label="L">0</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P"></td>
+                  <td data-label="Tot">2</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 9th Sem -->
+        <details class="custom-details">
+          <summary>9th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Year</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">၁</td>
+                  <td data-label="Year">ပဉ္စ မနှစ်</td>
+                  <td data-label="Code">EP 9011</td>
+                  <td data-label="Courses">Elective Course I</td>
+                  <td data-label="L"></td>
+                  <td data-label="T"></td>
+                  <td data-label="P"></td>
+                  <td data-label="Tot"></td>
+                  <td data-label="Credit Points"></td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၂</td>
+                  <td data-label="Year">ပဉ္စ မနှစ်</td>
+                  <td data-label="Code">EP 9002</td>
+                  <td data-label="Courses">
+                    Research Methodology and Statistical Analysis
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၃</td>
+                  <td data-label="Year">ပဉ္စ မနှစ်</td>
+                  <td data-label="Code">EP 9055</td>
+                  <td data-label="Courses">Integrated Design Project</td>
+                  <td data-label="L"></td>
+                  <td data-label="T"></td>
+                  <td data-label="P"></td>
+                  <td data-label="Tot">6</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>9</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>19</td>
+                  <td>7</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 10th Sem -->
+        <details class="custom-details">
+          <summary>10th Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Year</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="4">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">၁</td>
+                  <td data-label="Year">ပဉ္စ မနှစ်</td>
+                  <td data-label="Code">EP 52012</td>
+                  <td data-label="Courses">Elective Course II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၂</td>
+                  <td data-label="Year">ပဉ္စ မနှစ်</td>
+                  <td data-label="Code">GE 52001</td>
+                  <td data-label="Courses">Initial Professional Development</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">၃</td>
+                  <td data-label="Year">ပဉ္စ မနှစ်</td>
+                  <td data-label="Code">EP 52001</td>
+                  <td data-label="Courses">Graduation Project/ Mini Thesis</td>
+                  <td data-label="L"></td>
+                  <td data-label="T"></td>
+                  <td data-label="P"></td>
+                  <td data-label="Tot">22</td>
+                  <td data-label="Credit Points">11</td>
+                </tr>
+                <tr>
+                  <td colspan="4">Total</td>
+                  <td>7</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>31</td>
+                  <td>15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Elective I -->
+        <details class="custom-details">
+          <summary>Elective I</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Code</th>
+                  <th>Courses</th>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EP-9011</td>
+                  <td data-label="Courses">Electrical Machine Design</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EP-10011</td>
+                  <td data-label="Courses">Special Electric Machines</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">TOTAL</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>6</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Elective II -->
+        <details class="custom-details">
+          <summary>Elective II</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Code</th>
+                  <th>Courses</th>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EP-9011</td>
+                  <td data-label="Courses">Power System Design</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EP-10011</td>
+                  <td data-label="Courses">SCADA in Power System</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">TOTAL</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>6</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Elective III -->
+        <details class="custom-details">
+          <summary>Elective III</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Code</th>
+                  <th>Courses</th>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EP-9011</td>
+                  <td data-label="Courses">Energy Saving and Power Quality</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EP-10011</td>
+                  <td data-label="Courses">Building Energy Design</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">TOTAL</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>6</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Elective IV -->
+        <details class="custom-details">
+          <summary>Elective IV</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Code</th>
+                  <th>Courses</th>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EP-9011</td>
+                  <td data-label="Courses">Control System Design</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EP-10011</td>
+                  <td data-label="Courses">
+                    Electrical Drive System in Electric Vehicles
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Tot">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">TOTAL</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>6</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Field-1.jpg",
+            caption: "Field 1",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Field-2.jpg",
+            caption: "Field 2",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Field-3.jpg",
+            caption: "Field 3",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Field-4.jpg",
+            caption: "Field 4",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Field-5.jpg",
+            caption: "Field 5",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Field-6.jpg",
+            caption: "Field 6",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Field-7.jpg",
+            caption: "Field 7",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Field-8.jpg",
+            caption: "Field 8",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Field-9.jpg",
+            caption: "Field 9",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Project-1.jpg",
+            caption: "Project 1",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Project-2.jpg",
+            caption: "Project 2",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Project-3.jpg",
+            caption: "Project 3",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Project-4.jpg",
+            caption: "Project 4",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Project-5.jpg",
+            caption: "Project 5",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Project-6.jpg",
+            caption: "Project 6",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide";
+          if (idx === 0) slide.classList.add("active");
+          slide.innerHTML = `
+        <img src="${img.src}" alt="Slide ${idx + 1}">
+        <div class="caption">${img.caption}</div>
+      `;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          let next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+        }
+
+        function prevSlide() {
+          let prev = (currentIndex - 1 + slides.length) % slides.length;
+          showSlide(prev);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        });
+
+        function handleSwipe() {
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        }
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+  </head>
+  <body>
+    <style>
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      @keyframes pulse {
+        0% {
+          filter: brightness(1);
+        }
+        100% {
+          filter: brightness(1.4);
+        }
+      }
+      .department-card-link {
+        text-decoration: none; /* remove underline */
+        color: inherit; /* keep original text color */
+        flex: 1 1 260px;
+        max-width: 300px;
+        display: grid; /* makes the link cover the card */
+      }
+
+      .department-card {
+        background: #f9fbfc;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .department-card:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-4px);
+      }
+
+      .department-card-img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        margin-bottom: 16px;
+      }
+
+      .hr-style {
+        border: none;
+        height: 4px;
+        background: linear-gradient(to right, #ff6f00, #ffa726, #ff6f00);
+        border-radius: 2px;
+        margin: auto;
+        max-width: 300px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        animation: pulse 2s infinite alternate;
+      }
+
+      /* University Identity Section */
+      .university-identity {
+        padding: 15px 20px;
+        text-align: center;
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+      }
+
+      .university-identity h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+      }
+
+      .identity-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .identity-card {
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        text-align: left;
+      }
+
+      .identity-card h3 {
+        font-size: 20px;
+        color: #ff6600;
+        margin-bottom: 15px;
+      }
+      .identity-card p,
+      .identity-card ul {
+        font-size: 15px;
+        line-height: 1.6;
+        /* text-align: justify; */
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4; /* clamp lines */
+        overflow: hidden;
+        white-space: normal;
+        position: relative; /* for ::after */
+        margin: 0;
+      }
+    </style>
+    <!-- Slide Show -->
+    <div class="slider-container" id="sliderContainer">
+      <div class="slider-wrapper" id="sliderWrapper">
+        <!-- Slides will be injected -->
+      </div>
+      <div class="slider-nav">
+        <button id="prevBtn" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+          </svg>
+        </button>
+        <button id="nextBtn" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24">
+            <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div style="padding: 20px 0">
+      <hr class="hr-style" />
+    </div>
+
+    <!-- University Vision, Mission, Motto & Quality Policy Section -->
+    <section class="university-identity">
+      <h2>Our Identity</h2>
+
+      <div class="identity-grid">
+        <div class="identity-card">
+          <h3>Vision</h3>
+          <p
+            data-full="Our vision is to produce engineers and architects who can create a
+            better future for a wide range of technologies based on research and
+            innovation, standing as an international standard technological
+            university at the local level by following the rules and
+            regulations."
+          >
+            Our vision is to produce engineers and architects who can create a
+            better future for a wide range of technologies based on research and
+            innovation, standing as an international standard technological
+            university at the local level by following the rules and
+            regulations.
+          </p>
+        </div>
+
+        <div class="identity-card">
+          <h3>Mission</h3>
+          <ul>
+            <li>
+              To implement lifelong learning opportunities in accordance with
+              the provisions of the National Education Law, Higher Education Law
+              and Rules and Regulations
+            </li>
+            <li>
+              To be implemented as a university that can create job
+              opportunities by extensive research in collaboration with local
+              and foreign universities, research organizations and factories
+            </li>
+            <li>
+              To produce brilliant, qualified and leadership national benefit
+              engineers/architects, who follow the code of ethic, with research
+              and creativity through excellent engineering and architectural
+              processes in line with international quality standards
+            </li>
+          </ul>
+        </div>
+
+        <div class="identity-card">
+          <h3>Motto</h3>
+          <p>“The Road To Knowledge Has No End”</p>
+        </div>
+
+        <div class="identity-card">
+          <h3>အရည်အသွေးဆိုင်ရာမူဝါဒ</h3>
+          <ul>
+            <li>
+              အရည်အချင်းပြည့်ဝ၍ ကျွမ်းကျင်ပိုင်နိုင်သော သုတေသနပြုမှုနှင့်
+              ဆန်းသစ် တီထွင်မှုအောက်တွင်လူမှုပတ်ဝန်းကျင်နှင့် အလုပ်ခွင်အား
+              တိုက်ရိုက်အကျိုးပြုနိုင်မည့် အင်ဂျင်နီယာ၊ ဗိသုကာ ဘွဲ့ရပညာရှင်များ
+              မွေးထုတ်ပေးရန်။
+            </li>
+            <li>
+              သီအိုရီနှင့်လက်တွေ့ပေါင်းစပ်သည့် သင်ကြားသင်ယူမှု
+              ပတ်ဝန်းကျင်ကောင်းများ ဖော်ဆောင်လျက်နိုင်ငံတော်ဖွံ့ဖြိုး
+              တိုးတက်ရေးအား အထောက်ကူပြုနိုင်မည့် အင်ဂျင်နီယာ၊ ဗိသုကာ
+              ဘွဲ့ရပညာရှင်များ မွေးထုတ်ပေးရန်။
+            </li>
+            <li>
+              အရည်အသွေး စီမံခန့်ခွဲမှုစနစ်ဖြစ်သော ISO 9001:2015 Standard
+              စံနှုန်းများနှင့်အညီ ပြန်လည် သုံးသပ်ခြင်း အစဉ် တိုးတက်အောင်
+              ဆောင်ရွက်ခြင်းအားဖြင့် ကောင်းမွန်သော ဝန်ဆောင်မှုနှင့် ကျောင်းသား၊
+              ကျောင်းသူများ၏ စိတ်ကျေနပ်မှုကို ရရှိစေရန်။
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div style="padding: 20px 0">
+      <hr class="hr-style" />
+    </div>
+
+    <!-- Department Cards -->
+    <div
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        padding: 30px 20px;
+        max-width: 1200px;
+        margin: auto;
+        font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+      "
+    >
+      <img
+        src="http://www.tum.edu.mm/wp-content/uploads/2024/11/TUM-2.jpg"
+        alt="TUM Campus"
+        style="
+          max-width: 500px;
+          width: 100%;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        "
+      />
+
+      <div style="flex: 1; min-width: 300px">
+        <h2 style="font-size: 36px; color: #ff6f00; margin-bottom: 16px">
+          Welcome to TUM
+        </h2>
+        <p
+          style="
+            font-size: 18px;
+            color: #333;
+            line-height: 1.7;
+            max-width: 600px;
+          "
+        >
+          Technological University (Mandalay) is a proud leader in Myanmar’s
+          engineering education. Located in Pathein Gyi, Mandalay, we are
+          committed to shaping future innovators through advanced laboratories,
+          skilled faculty, and cutting-edge programs that meet industry demands.
+        </p>
+      </div>
+    </div>
+
+    <div style="padding: 20px 0">
+      <hr class="hr-style" />
+    </div>
+
+    <div
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        padding: 30px 20px;
+        max-width: 1200px;
+        margin: auto;
+        font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+      "
+    >
+      <div style="flex: 1; min-width: 300px">
+        <h2
+          style="
+            font-size: 36px;
+            color: #ff6f00;
+            margin-bottom: 16px;
+            text-align: center;
+          "
+        >
+          About Technological University (Mandalay)
+        </h2>
+        <p
+          style="
+            font-size: 18px;
+            color: #333;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: auto;
+          "
+        >
+          Technological University (Mandalay) is one of Myanmar’s oldest
+          engineering universities, spanning 65.37 acres. We are committed to
+          excellence in teaching, innovation, and student development.
+        </p>
+      </div>
+
+      <img
+        src="http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-b3ba2f5d6215335a577fcd186ce6cef6-V.jpg"
+        alt="About TUM"
+        style="
+          max-width: 500px;
+          width: 100%;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        "
+      />
+    </div>
+
+    <div style="padding: 20px 0">
+      <hr class="hr-style" />
+    </div>
+
+    <div
+      style="
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        gap: 24px;
+        padding: 30px 10px;
+        max-width: 1200px;
+        margin: auto;
+      "
+    >
+      <!-- Civil Engineering -->
+      <a
+        href="https://www.tum.edu.mm/?page_id=1676"
+        class="department-card-link"
+        ><div class="department-card">
+          <img
+            src="https://www.tum.edu.mm/wp-content/uploads/2025/08/civil-logo.png"
+            alt="TUM Logo"
+            class="department-card-img"
+          />
+          <h3 style="color: #ff6600; margin-bottom: 12px">Civil Engineering</h3>
+          <p style="color: #2c3e50">
+            Master structural design, soil mechanics & sustainable construction
+            techniques.
+          </p>
+        </div></a
+      >
+
+      <!-- Architecture -->
+      <a
+        href="https://www.tum.edu.mm/?page_id=1684"
+        class="department-card-link"
+        ><div class="department-card">
+          <img
+            src="http://www.tum.edu.mm/wp-content/uploads/2024/11/ArchLogo.jpg"
+            alt="Archi Logo"
+            class="department-card-img"
+          />
+          <h3 style="color: #ff6600; margin-bottom: 12px">Architecture</h3>
+          <p style="color: #2c3e50">
+            Learn design, planning, and sustainable architectural practices.
+          </p>
+        </div></a
+      >
+
+      <!-- Electronic Engineering -->
+      <a
+        href="https://www.tum.edu.mm/?page_id=1681"
+        class="department-card-link"
+        ><div class="department-card">
+          <img
+            src="http://www.tum.edu.mm/wp-content/uploads/2025/08/2.-Attach_2-Logo_EC.png"
+            alt="EC Logo"
+            class="department-card-img"
+          />
+          <h3 style="color: #ff6600; margin-bottom: 12px">
+            Electronic Engineering
+          </h3>
+          <p style="color: #2c3e50">
+            Explore circuits, IoT, robotics & communication systems through
+            hands-on learning.
+          </p>
+        </div></a
+      >
+
+      <!-- Electrical Power Engineering -->
+      <a
+        href="https://www.tum.edu.mm/?page_id=1671"
+        class="department-card-link"
+        ><div class="department-card">
+          <img
+            src="http://www.tum.edu.mm/wp-content/uploads/2024/11/EPLogo.jpg"
+            alt="TUM Logo"
+            class="department-card-img"
+          />
+          <h3 style="color: #ff6600; margin-bottom: 12px">
+            Electrical Power Engineering
+          </h3>
+          <p style="color: #2c3e50">
+            Specialize in power systems, generation, transmission &
+            distribution.
+          </p>
+        </div></a
+      >
+
+      <!-- Mechanical Engineering -->
+      <a
+        href="https://www.tum.edu.mm/?page_id=1546"
+        class="department-card-link"
+        ><div class="department-card">
+          <img
+            src="http://www.tum.edu.mm/wp-content/uploads/2024/11/MechanicalLogo.jpg"
+            alt="TUM Logo"
+            class="department-card-img"
+          />
+          <h3 style="color: #ff6600; margin-bottom: 12px">
+            Mechanical Engineering
+          </h3>
+          <p style="color: #2c3e50">
+            Gain expertise in mechanics, thermodynamics, machine design &
+            automation.
+          </p>
+        </div></a
+      >
+
+      <!-- Information Technology Engineering -->
+      <a
+        href="https://www.tum.edu.mm/?page_id=1572"
+        class="department-card-link"
+        ><div class="department-card">
+          <img
+            src="http://www.tum.edu.mm/wp-content/uploads/2025/05/IT-Logo.jpg"
+            alt="IT Logo"
+            class="department-card-img"
+          />
+          <h3 style="color: #ff6600; margin-bottom: 12px">
+            Information Technology Engineering
+          </h3>
+          <p style="color: #2c3e50">
+            Learn software development, networking, and data systems.
+          </p>
+        </div></a
+      >
+
+      <!-- Petroleum Engineering -->
+      <a
+        href="https://www.tum.edu.mm/?page_id=1571"
+        class="department-card-link"
+        ><div class="department-card">
+          <img
+            src="http://www.tum.edu.mm/wp-content/uploads/2024/11/PetroleumLogo.jpg"
+            alt="TUM Logo"
+            class="department-card-img"
+          />
+          <h3 style="color: #ff6600; margin-bottom: 12px">
+            Petroleum Engineering
+          </h3>
+          <p style="color: #2c3e50">
+            Focus on exploration, drilling, and extraction technologies.
+          </p>
+        </div></a
+      >
+
+      <!-- Mining Engineering -->
+      <a
+        href="https://www.tum.edu.mm/?page_id=1552"
+        class="department-card-link"
+        ><div class="department-card">
+          <img
+            src="http://www.tum.edu.mm/wp-content/uploads/2024/11/MiningLogo.jpg"
+            alt="TUM Logo"
+            class="department-card-img"
+          />
+          <h3 style="color: #ff6600; margin-bottom: 12px">
+            Mining Engineering
+          </h3>
+          <p style="color: #2c3e50">
+            Learn extraction, mineral processing & sustainable mining
+            techniques.
+          </p>
+        </div></a
+      >
+
+      <!-- Mining Engineering -->
+      <a
+        href="https://www.tum.edu.mm/?page_id=2188"
+        class="department-card-link"
+        ><div class="department-card">
+          <img
+            src="https://www.tum.edu.mm/wp-content/uploads/2025/08/Picture1-1.png"
+            alt="TUM Logo"
+            class="department-card-img"
+          />
+          <h3 style="color: #ff6600; margin-bottom: 12px">
+            Chemical Engineering
+          </h3>
+          <p style="color: #2c3e50">
+            Learn process design, chemical reactions & sustainable production
+            techniques.
+          </p>
+        </div></a
+      >
+    </div>
+
+    <div style="padding: 20px 0">
+      <hr class="hr-style" />
+    </div>
+
+    <style>
+      @keyframes pulse {
+        0% {
+          filter: brightness(1);
+        }
+        100% {
+          filter: brightness(1.4);
+        }
+      }
+    </style>
+
+    <div
+      style="
+        padding: 25px 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <h2
+        style="
+          color: #ff6600;
+          font-size: 36px;
+          margin-bottom: 30px;
+          font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+          letter-spacing: 1px;
+          text-align: center;
+        "
+      >
+        Upcoming Events
+      </h2>
+      <ul
+        style="
+          max-width: 720px;
+          text-align: left;
+          padding-left: 20px;
+          font-size: 20px;
+          color: #2c3e50;
+          font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+          line-height: 1.8;
+          list-style: none;
+        "
+      >
+        <li>
+          <strong>Seminar on AI in Engineering</strong> —
+          <span style="color: #666">Aug 10, 2025</span>
+        </li>
+        <li>
+          <strong>Final Year Project Exhibition</strong> —
+          <span style="color: #666">Sept 5, 2025</span>
+        </li>
+        <li>
+          <strong>Technological Fest 2025</strong> —
+          <span style="color: #666">Oct 1–3, 2025</span>
+        </li>
+      </ul>
+    </div>
+
+    <div style="padding: 20px 0">
+      <hr class="hr-style" />
+    </div>
+
+    <!-- Script for Slide Show -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/TUM-Main-Building-New.jpg",
+            caption: "Campus View",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-e7e0037285b375c66224c2e8839d0364-V.jpg",
+            caption: "Lab Activities",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-d1e6c929851a5160c37afb6e96d9ecdf-V.jpg",
+            caption: "Lab Activities",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-b3ba2f5d6215335a577fcd186ce6cef6-V.jpg",
+            caption: "Lab Activities",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-421494398dec47b7a170048fd0a79dab-V.jpg",
+            caption: "Lab Session",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-65729ed2ff528c12c7482183a43d074b-V.jpg",
+            caption: "Lab Activities",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-68e5a6a8c7bcbe172a885e0259395dbe-V.jpg",
+            caption: "Classroom Session",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-1b3f06b80bbd0ddec434df0a347abaf9-V.jpg",
+            caption: "Lab Activities",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-6c316df91d6b846b582ee28931dd162b-V.jpg",
+            caption: "Classroom Session",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-5069d8d31bded8fa3252befcf4ff715f-V.jpg",
+            caption: "Main Building View",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-75cb34fd8ec31a97d5f91e869b5fea53-V.jpg",
+            caption: "Computer Lab",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide";
+          if (idx === 0) slide.classList.add("active");
+          slide.innerHTML = `
+        <img src="${img.src}" alt="Slide ${idx + 1}">
+        <div class="caption">${img.caption}</div>
+      `;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          let next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+        }
+
+        function prevSlide() {
+          let prev = (currentIndex - 1 + slides.length) % slides.length;
+          showSlide(prev);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        });
+
+        function handleSwipe() {
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        }
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>

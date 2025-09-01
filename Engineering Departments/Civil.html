@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Civil Engineering</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+
+      /* Image Slider Container */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>History</h2>
+        <p>
+          Civil engineering program has been formed since the beginning of the
+          Government Technical Institute at 1955. Every Head of Civil
+          Engineering tried very hard for our department to promote the
+          technological field and therefore, nowadays we are proud of our
+          department. And the students who had been studied from the civil
+          engineering department are well done for job opportunities to regional
+          field.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>
+          Civil Engineering Department of the Technological University
+          (Mandalay) is envisaged to become a department which trains students
+          systematically to quality for the workplace requirements and to grow
+          into outstanding Civil Engineers.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <ul>
+          <li>
+            To achieve effective and comprehensive teaching and learning
+            experiences by utilizing modern teaching aids
+          </li>
+          <li>
+            To implement the capacity building for teaching staffs and
+            laboratory assistants
+          </li>
+          <li>
+            To identify workplace qualifications and to evaluate curriculum
+            continually
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Objectives</h2>
+        <ul>
+          <li>
+            To increase the pass percentage of undergraduate Civil Engineering
+            students to more than 85%
+          </li>
+          <li>To receive complaints from customers no more than 5%</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Degree Awards</h2>
+        <ul>
+          <li>Bachelor of Engineering B.E (Civil)</li>
+          <li>Master of Engineering M.E (Civil)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Research Areas</h2>
+        <ul>
+          <li>Construction materials research</li>
+          <li>Water resources engineering research</li>
+          <li>Geotechnical engineering research</li>
+          <li>Transportation engineering research</li>
+          <li>
+            Latest Projects(Fourth Year Project Title 2024-2025 Academic Year):
+            <ul>
+              <li>Modelling and Design of Nirvana Villa</li>
+              <li>
+                Modelling and Design of Four-Storey RC Building with Seismic
+                Isolators
+              </li>
+              <li>
+                Modelling the Construction and Design of the Mandalay - Pyin Oo
+                Lwin Highway
+              </li>
+              <li>Model Construction of Swing Bridge</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block" style="padding: 0">
+      <div class="content-inner">
+        <h2>Activities</h2>
+        <div class="slider-container" id="sliderContainer">
+          <div class="slider-wrapper" id="sliderWrapper">
+            <!-- Slides will be injected -->
+          </div>
+          <div class="slider-nav">
+            <button id="prevBtn" aria-label="Previous Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              </svg>
+            </button>
+            <button id="nextBtn" aria-label="Next Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tables -->
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Courses and Curriculum for Bachelor of Civil Engineering</h2>
+        <p>
+          No. of Semester = 2 semester / year <br />
+          No. of Week = 15 week <br />
+          Lecture: IL = 1:1, Tutorial/ Practical: IL =1:1 <br />
+          SLT Credit = SLT (hr) / 40 hr
+        </p>
+        <!-- Year I -->
+        <details class="custom-details" open>
+          <summary>Year I</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>M-11011</td>
+                  <td>Myanmar</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>E-11011</td>
+                  <td>English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>EM-11001</td>
+                  <td>Engineering Mathematics I</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Ch-11001</td>
+                  <td>Engineering Chemistry</td>
+                  <td>45</td>
+                  <td>15</td>
+                  <td>30</td>
+                  <td>90</td>
+                  <td>90</td>
+                  <td>180</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Ph-11001</td>
+                  <td>Engineering Physics</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>30</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>ME-11011</td>
+                  <td>Basic Engineering Drawing</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>CE-11022</td>
+                  <td>Building Materials & Construction I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>240</td>
+                  <td>75</td>
+                  <td>105</td>
+                  <td>420</td>
+                  <td>420</td>
+                  <td>840</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>16</td>
+                  <td>5</td>
+                  <td>7</td>
+                  <td>28</td>
+                  <td>28</td>
+                  <td>56</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td colspan="10" style="text-align: left">
+                    <strong
+                      >Notes: 1. * F2F = Face-to-Face 2. ** self- learning will
+                      include learning from self-learning modules and any
+                      additional non F2F hours self-learning and preparation for
+                      lecture/ lab, / tutorial and test and evaluation</strong
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>M-12011</td>
+                  <td>Myanmar</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>E-12011</td>
+                  <td>English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>EM-12002</td>
+                  <td>Engineering Mathematics II</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Ch-12011</td>
+                  <td>Engineering Chemistry</td>
+                  <td>45</td>
+                  <td>15</td>
+                  <td>30</td>
+                  <td>90</td>
+                  <td>90</td>
+                  <td>180</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Ph-12011</td>
+                  <td>Engineering Physics</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>30</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>ME-12011</td>
+                  <td>Basic Engineering Drawing</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>CE-12022</td>
+                  <td>Building Materials & Construction II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>240</td>
+                  <td>75</td>
+                  <td>105</td>
+                  <td>420</td>
+                  <td>420</td>
+                  <td>840</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>16</td>
+                  <td>5</td>
+                  <td>7</td>
+                  <td>28</td>
+                  <td>28</td>
+                  <td>56</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Year II -->
+        <details class="custom-details">
+          <summary>Year II</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E-21011</td>
+                  <td>English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM-21003</td>
+                  <td>Engineering Mathematics III</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>ME-21015</td>
+                  <td>Engineering Mechanics</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>EP-21011</td>
+                  <td>Applied Electrical Engineering</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>CE-21011</td>
+                  <td>Surveying I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>CE-21012</td>
+                  <td>Civil Engineering Drawing I</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>CE-21019</td>
+                  <td>Workshop Technologies & Practices I</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>210</td>
+                  <td>75</td>
+                  <td>105</td>
+                  <td>390</td>
+                  <td>390</td>
+                  <td>780</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E-22011</td>
+                  <td>English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM-22004</td>
+                  <td>Engineering Mathematics IV</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>ME-22015</td>
+                  <td>Engineering Mechanics</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>EP-22011</td>
+                  <td>Applied Electrical Engineering</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>CE-22011</td>
+                  <td>Surveying II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>CE-22012</td>
+                  <td>Civil Engineering Drawing II</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>CE-22019</td>
+                  <td>Workshop Technologies & Practices II</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>210</td>
+                  <td>75</td>
+                  <td>105</td>
+                  <td>390</td>
+                  <td>390</td>
+                  <td>780</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>14</td>
+                  <td>5</td>
+                  <td>7</td>
+                  <td>26</td>
+                  <td>26</td>
+                  <td>52</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Year III -->
+        <details class="custom-details">
+          <summary>Year III</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E-31011</td>
+                  <td>English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM-31005</td>
+                  <td>Engineering Mathematics V</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>CE-31011</td>
+                  <td>Surveying III</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>CE-31013</td>
+                  <td>Mechanics of Materials I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>CE-31016</td>
+                  <td>Fluid Mechanics I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>CE-31017</td>
+                  <td>Transportation Engineering I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>CE-31015</td>
+                  <td>Geotechnical Engineering I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>Geol-31011</td>
+                  <td>Civil Engineering Geology I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>270</td>
+                  <td>120</td>
+                  <td>60</td>
+                  <td>450</td>
+                  <td>450</td>
+                  <td>900</td>
+                  <td>21</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>18</td>
+                  <td>8</td>
+                  <td>4</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E-32011</td>
+                  <td>English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM-32006</td>
+                  <td>Engineering Mathematics VI</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>CE-32013</td>
+                  <td>Mechanics of Materials II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>CE-32016</td>
+                  <td>Fluid Mechanics II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>CE-32017</td>
+                  <td>Transportation Engineering II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>CE-32015</td>
+                  <td>Geotechnical Engineering II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>Geol-32011</td>
+                  <td>Civil Engineering Geology II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>240</td>
+                  <td>105</td>
+                  <td>45</td>
+                  <td>390</td>
+                  <td>390</td>
+                  <td>780</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>16</td>
+                  <td>7</td>
+                  <td>3</td>
+                  <td>26</td>
+                  <td>26</td>
+                  <td>52</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Year IV -->
+        <details class="custom-details">
+          <summary>Year IV</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E-41011</td>
+                  <td>English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM-41007</td>
+                  <td>Engineering Mathematics VII</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>CE-41013</td>
+                  <td>Theory of Structure I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>CE-41014</td>
+                  <td>Design of Timber Structure</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>CE-41015</td>
+                  <td>Foundation Engineering</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>CE-41016</td>
+                  <td>Hydraulic Engineering & Applied Hydraulics I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>CE-41017</td>
+                  <td>Transportation Engineering III</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>240</td>
+                  <td>105</td>
+                  <td>30</td>
+                  <td>375</td>
+                  <td>375</td>
+                  <td>750</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>16</td>
+                  <td>7</td>
+                  <td>1</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E-42011</td>
+                  <td>English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM-42008</td>
+                  <td>Engineering Mathematics VIII</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>CE-42013</td>
+                  <td>Theory of Structure II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>CE-42016</td>
+                  <td>Engineering Hydrology</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>CE-42016</td>
+                  <td>Hydraulic Engineering & Applied Hydraulics II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>CE-42017</td>
+                  <td>Transportation Engineering IV</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>210</td>
+                  <td>90</td>
+                  <td>15</td>
+                  <td>315</td>
+                  <td>315</td>
+                  <td>630</td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>14</td>
+                  <td>6</td>
+                  <td>1</td>
+                  <td>21</td>
+                  <td>21</td>
+                  <td>42</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Year V -->
+        <details class="custom-details">
+          <summary>Year V</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>CE-51013</td>
+                  <td>Theory of Structure III</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>CE-51014</td>
+                  <td>Design of Reinforce Concrete Structure I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>CE-51012</td>
+                  <td>Construction Engineering Management I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>CE-51016</td>
+                  <td>Design of Hydraulic Structures I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>CE-51024</td>
+                  <td>Design of Steel Structures I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>CE-51018</td>
+                  <td>Environmental Engineering I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>CE-51022</td>
+                  <td>Estimating & Specifications I</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>195</td>
+                  <td>90</td>
+                  <td>60</td>
+                  <td>345</td>
+                  <td>345</td>
+                  <td>690</td>
+                  <td>16</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>13</td>
+                  <td>6</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>23</td>
+                  <td>46</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>CE-52014</td>
+                  <td>Design of Reinforce Concrete Structure II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>CE-52012</td>
+                  <td>Construction Engineering Management II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>CE-52016</td>
+                  <td>Design of Hydraulic Structures II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>CE-52024</td>
+                  <td>Design of Steel Structures II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>CE-52018</td>
+                  <td>Environmental Engineering II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>CE-52022</td>
+                  <td>Estimating & Specifications II</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>165</td>
+                  <td>75</td>
+                  <td>60</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>600</td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>11</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>21</td>
+                  <td>21</td>
+                  <td>42</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Year VI -->
+        <details class="custom-details">
+          <summary>Year VI</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>HSS-61011</td>
+                  <td>Humanity and Social Science</td>
+                  <td>45</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>CE-61019</td>
+                  <td>Computer Application in Civil Engg</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>90</td>
+                  <td>90</td>
+                  <td>180</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>CE-61018</td>
+                  <td>Environmental Engineering III</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>CE-61029</td>
+                  <td>Integrated Design Project</td>
+                  <td>45</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>135</td>
+                  <td>15</td>
+                  <td>90</td>
+                  <td>240</td>
+                  <td>240</td>
+                  <td>480</td>
+                  <td>11</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>9</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>16</td>
+                  <td>16</td>
+                  <td>32</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+              Civil
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="3">
+                    Traditional (guided) in class learning activities
+                  </th>
+                  <th colspan="3">Total</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>CE-62001</td>
+                  <td>Industrial Training</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>160</td>
+                  <td>160</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>CE-62009</td>
+                  <td>Mini Thesis/Graduation Thesis</td>
+                  <td>75</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>285</td>
+                  <td>360</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>75</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>445</td>
+                  <td>520</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Student learning time (SLT) per week</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>30</td>
+                  <td>35</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Summary -->
+        <details class="custom-details" open>
+          <summary>Summary</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Semester</th>
+                  <th>SLT Credit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="2">Year I</td>
+                  <td>Semester I</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">Year II</td>
+                  <td>Semester I</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">Year III</td>
+                  <td>Semester I</td>
+                  <td>21</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">Year IV</td>
+                  <td>Semester I</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">Year V</td>
+                  <td>Semester I</td>
+                  <td>16</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">Year VI</td>
+                  <td>Semester I</td>
+                  <td>11</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td colspan="2">Sub Total</td>
+                  <td>183</td>
+                </tr>
+                <tr>
+                  <td colspan="2">Graduation Thesis</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td colspan="2">Internship Training</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td colspan="2">Grand Total</td>
+                  <td>196</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Civil-BMC-Lab.png",
+            caption: "BMC Lab Activity",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Civil-fluid-lab.png",
+            caption: "Fluid Lab Activity",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/civil-survey-practical-.png",
+            caption: "Survey Practical Activity",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/civil-football.png",
+            caption:
+              "၁၆.၇.၂၀၂၅ တွင် ပြုလုပ်သောမိုးရာသီအားကစားဘောလုံးပြိုင်ပွဲ ( Civil Vs EP)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Civil-hta-ma-nae.png",
+            caption: "10.2.2025 - ထမနဲပြိုင်ပွဲ",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/civil-survey-camp.png",
+            caption: "၁၉.၅.၂၀၂၂၅ မှ ၂၈.၉.၂၀၂၅ထိ survey camp ပြုလုပ်ခြင်း",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/civil-workshop.png",
+            caption: "Workshop Activity",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide";
+          if (idx === 0) slide.classList.add("active");
+          slide.innerHTML = `
+        <img src="${img.src}" alt="Slide ${idx + 1}">
+        <div class="caption">${img.caption}</div>
+      `;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          let next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+        }
+
+        function prevSlide() {
+          let prev = (currentIndex - 1 + slides.length) % slides.length;
+          showSlide(prev);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        });
+
+        function handleSwipe() {
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        }
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>

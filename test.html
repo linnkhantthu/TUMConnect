@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+
+      /* Slider */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10;
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Pulse HR */
+      @keyframes pulse {
+        0% {
+          filter: brightness(1);
+        }
+        100% {
+          filter: brightness(1.4);
+        }
+      }
+
+      .pulse-hr {
+        border: none;
+        height: 4px;
+        background: linear-gradient(to right, #ff6f00, #ffa726, #ff6f00);
+        border-radius: 2px;
+        margin: 20px auto;
+        max-width: 300px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        animation: pulse 2s infinite alternate;
+      }
+
+      /* Section container */
+      .section-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        padding: 30px 20px;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .section-container img {
+        max-width: 500px;
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-text {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .section-text h2 {
+        font-size: 36px;
+        color: #ff6f00;
+        margin-bottom: 16px;
+      }
+
+      .section-text p {
+        font-size: 18px;
+        line-height: 1.7;
+        max-width: 600px;
+        color: #333;
+      }
+
+      /* Department Cards */
+      .departments {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        gap: 24px;
+        padding: 30px 10px;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .department-card {
+        flex: 1 1 260px;
+        max-width: 300px;
+        background: #f9fbfc;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        text-align: center;
+      }
+
+      .department-card img {
+        margin-bottom: 12px;
+        border-radius: 50%;
+      }
+
+      .department-card h3 {
+        color: #ff6600;
+        margin-bottom: 12px;
+      }
+
+      .department-card p {
+        color: #2c3e50;
+      }
+
+      /* Upcoming events */
+      .events {
+        padding: 25px 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .events h2 {
+        color: #ff6600;
+        font-size: 36px;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+        text-align: center;
+      }
+
+      .events ul {
+        max-width: 720px;
+        text-align: left;
+        padding-left: 20px;
+        font-size: 20px;
+        line-height: 1.8;
+        list-style: none;
+      }
+
+      .events li span {
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Slide Show -->
+    <div class="slider-container" id="sliderContainer">
+      <div class="slider-wrapper" id="sliderWrapper"></div>
+      <div class="slider-nav">
+        <button id="prevBtn" aria-label="Previous Slide">
+          <svg viewBox="0 0 24 24">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+          </svg>
+        </button>
+        <button id="nextBtn" aria-label="Next Slide">
+          <svg viewBox="0 0 24 24">
+            <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <hr class="pulse-hr" />
+
+    <div class="section-container">
+      <img
+        src="http://www.tum.edu.mm/wp-content/uploads/2024/11/TUM-2.jpg"
+        alt="TUM Campus"
+      />
+      <div class="section-text">
+        <h2>Welcome to TUM</h2>
+        <p>
+          Technological University (Mandalay) is a proud leader in Myanmar’s
+          engineering education. Located in Pathein Gyi, Mandalay, we are
+          committed to shaping future innovators through advanced laboratories,
+          skilled faculty, and cutting-edge programs that meet industry demands.
+        </p>
+      </div>
+    </div>
+
+    <hr class="pulse-hr" />
+
+    <div class="section-container">
+      <div class="section-text">
+        <h2>About Technological University (Mandalay)</h2>
+        <p>
+          Technological University (Mandalay) is one of Myanmar’s oldest
+          engineering universities, spanning 65.37 acres. We are committed to
+          excellence in teaching, innovation, and student development.
+        </p>
+      </div>
+      <img
+        src="http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-b3ba2f5d6215335a577fcd186ce6cef6-V.jpg"
+        alt="About TUM"
+      />
+    </div>
+
+    <hr class="pulse-hr" />
+
+    <div class="departments">
+      <!-- Repeatable department cards -->
+      <div class="department-card">
+        <img
+          src="http://www.tum.edu.mm/wp-content/uploads/2025/05/favicon-32x32-1.png"
+          alt="TUM Logo"
+        />
+        <h3>Civil Engineering</h3>
+        <p>
+          Master structural design, soil mechanics & sustainable construction
+          techniques.
+        </p>
+      </div>
+
+      <div class="department-card">
+        <img
+          src="http://www.tum.edu.mm/wp-content/uploads/2025/05/favicon-32x32-1.png"
+          alt="TUM Logo"
+        />
+        <h3>Architecture</h3>
+        <p>Learn design, planning, and sustainable architectural practices.</p>
+      </div>
+
+      <div class="department-card">
+        <img
+          src="http://www.tum.edu.mm/wp-content/uploads/2025/05/favicon-32x32-1.png"
+          alt="TUM Logo"
+        />
+        <h3>Electronic Engineering</h3>
+        <p>
+          Explore circuits, IoT, robotics & communication systems through
+          hands-on learning.
+        </p>
+      </div>
+      <div class="department-card">
+        <img
+          src="http://www.tum.edu.mm/wp-content/uploads/2025/05/favicon-32x32-1.png"
+          alt="TUM Logo"
+        />
+        <h3>Electrical Power Engineering</h3>
+        <p>
+          Specialize in power systems, generation, transmission & distribution.
+        </p>
+      </div>
+      <div class="department-card">
+        <img
+          src="http://www.tum.edu.mm/wp-content/uploads/2025/05/favicon-32x32-1.png"
+          alt="TUM Logo"
+        />
+        <h3>Mechanical Engineering</h3>
+        <p>
+          Gain expertise in mechanics, thermodynamics, machine design &
+          automation.
+        </p>
+      </div>
+      <div class="department-card">
+        <img
+          src="http://www.tum.edu.mm/wp-content/uploads/2025/05/favicon-32x32-1.png"
+          alt="TUM Logo"
+        />
+        <h3>Information Technology Engineering</h3>
+        <p>Learn software development, networking, and data systems.</p>
+      </div>
+      <div class="department-card">
+        <img
+          src="http://www.tum.edu.mm/wp-content/uploads/2025/05/favicon-32x32-1.png"
+          alt="TUM Logo"
+        />
+        <h3>Petroleum Engineering</h3>
+        <p>Focus on exploration, drilling, and extraction technologies.</p>
+      </div>
+      <div class="department-card">
+        <img
+          src="http://www.tum.edu.mm/wp-content/uploads/2025/05/favicon-32x32-1.png"
+          alt="TUM Logo"
+        />
+        <h3>Mining Engineering</h3>
+        <p>
+          Learn extraction, mineral processing & sustainable mining techniques.
+        </p>
+      </div>
+      <div class="department-card">
+        <img
+          src="http://www.tum.edu.mm/wp-content/uploads/2025/05/favicon-32x32-1.png"
+          alt="TUM Logo"
+        />
+        <h3>Chemical Engineering</h3>
+        <p>
+          Study chemical processes, industrial production & environmental
+          safety.
+        </p>
+      </div>
+    </div>
+
+    <hr class="pulse-hr" />
+
+    <div class="events">
+      <h2>Upcoming Events</h2>
+      <ul>
+        <li>
+          <strong>Seminar on AI in Engineering</strong> —
+          <span>Aug 10, 2025</span>
+        </li>
+        <li>
+          <strong>Final Year Project Exhibition</strong> —
+          <span>Sept 5, 2025</span>
+        </li>
+        <li>
+          <strong>Technological Fest 2025</strong> — <span>Oct 1–3, 2025</span>
+        </li>
+      </ul>
+    </div>
+
+    <hr class="pulse-hr" />
+
+    <!-- Slide Show Script -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/TUM-2.jpg",
+            caption: "Campus View",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-e7e0037285b375c66224c2e8839d0364-V.jpg",
+            caption: "Students Gathering",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-d1e6c929851a5160c37afb6e96d9ecdf-V.jpg",
+            caption: "Cultural Day",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-b3ba2f5d6215335a577fcd186ce6cef6-V.jpg",
+            caption: "Lecture Hall",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-421494398dec47b7a170048fd0a79dab-V.jpg",
+            caption: "Lab Session",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-65729ed2ff528c12c7482183a43d074b-V.jpg",
+            caption: "Freshers’ Event",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-68e5a6a8c7bcbe172a885e0259395dbe-V.jpg",
+            caption: "Group Photo",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/IMG-1b3f06b80bbd0ddec434df0a347abaf9-V.jpg",
+            caption: "Campus Garden",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/07/16.jpg",
+            caption: "Event Stage",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/07/9.jpg",
+            caption: "Outdoor Session",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/07/10.jpg",
+            caption: "Faculty Staff",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/07/14.jpg",
+            caption: "Main Entrance",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2024/11/LWT2.jpg",
+            caption: "Student Project",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/07/TUM-3-768x1024-1.jpg",
+            caption: "Library Corner",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide" + (idx === 0 ? " active" : "");
+          slide.innerHTML = `<img src="${img.src}" alt="Slide ${
+            idx + 1
+          }"><div class="caption">${img.caption}</div>`;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          showSlide((currentIndex + 1) % slides.length);
+        }
+
+        function prevSlide() {
+          showSlide((currentIndex - 1 + slides.length) % slides.length);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        });
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>

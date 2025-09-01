@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Engineering Mathematics</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>History</h2>
+        <p>
+          Department of Engineering Mathematics provides fundamental mathematics
+          knowledge essential for engineering students. The Department of
+          Engineering Mathematics has been established since the Government
+          Technical Institute, Mandalay was opened in 1955. Department started
+          Under Graduate program in the year 1955. Therefore, Department of
+          Engineering Mathematics of TUM is 70 years old in engineering
+          education service.
+        </p>
+      </div>
+    </div>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>
+          To Support Engineering students the skillfulness in solving the
+          problems practically by guiding how to identify, analyze and formulate
+          throughout critical thinking.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <ul>
+          <li>
+            To stand up for teaching and practising knowledge and thinking
+            related to Engineering Mathematics, being important to Engineering
+            programmes and architecture.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Objectives</h2>
+        <ul>
+          <li>
+            To achieve a minimum 80% passing rate in engineering mathematics for
+            students taking engineering courses each year.
+          </li>
+          <li>
+            To achieve a minimum of 40% for each course outcome in the
+            examination.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- First Year (1st Semester) EM - 1001: Engineering Mathematics I   -->
+    <div class="content-block">
+      <div class="content-inner">
+        <!-- 1st Year 1st Sem -->
+        <details class="custom-details">
+          <summary>
+            First Year (1st Semester) EM - 1001: Engineering Mathematics I
+          </summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter No.</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Chapter No.">CH(4)</td>
+                  <td data-label="Title">
+                    Applications of Derivatives (4.2, 4.5)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(6)</td>
+                  <td data-label="Title">
+                    Applications of Definite Integrals (6.2 - 6.4)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(7)</td>
+                  <td data-label="Title">
+                    Integrals and Transcendental Equations (7.1 - 7.4)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(8)</td>
+                  <td data-label="Title">
+                    Techniques of Integration (8.3, 8.4, 8.8)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(7)</td>
+                  <td data-label="Title">
+                    Linear Independence. Rank of a Matrix. Vector Space,
+                    Determinants. Cramer’s Rule, Inverse of a Matrix.
+                    Gauss–Jordan Elimination (7.3 - 7.8)
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" data-label="REFERENCE">
+                    <p>REFERENCES</p>
+                    <ul type="disc">
+                      <li>
+                        [1] Thomas’ Calculus, Early Transcendentals, George B.
+                        Thomas, Jr., 15th Edition, Pearson Education, Inc., 2023
+                      </li>
+                      <li>
+                        [2] Advanced Engineering Mathematics, Erwin Kreyszig,
+                        10th Edition, John Wiley & Sons Inc, 2011.
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+        <!-- 1st Year Sec Sem -->
+        <details class="custom-details">
+          <summary>
+            First Year (2nd Semester) EM - 2011: Engineering Mathematics II
+          </summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter No.</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Chapter No.">CH(10)</td>
+                  <td data-label="Title">
+                    Infinite Sequences and Series (10.1 - 10.5)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(11)</td>
+                  <td data-label="Title">
+                    Parametric Equations and Polar Coordinates (11.1 - 11.7)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(13)</td>
+                  <td data-label="Title">
+                    Vector-valued Functions and Motion in Space (13.1 - 13.5)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(14)</td>
+                  <td data-label="Title">Partial Derivatives (14.3 - 14.7)</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(15)</td>
+                  <td data-label="Title">Multiple Integrals (15.1 – 15.5)</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(16)</td>
+                  <td data-label="Title">
+                    Integrals and Vector Fields (16.1 – 16.7)
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" data-label="REFERENCE">
+                    <p>REFERENCES</p>
+                    <ul type="disc">
+                      <li>
+                        [1] Thomas’ Calculus, Early Transcendentals, George B.
+                        Thomas, Jr., 15th Edition, Pearson Education, Inc., 2023
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+        <!-- 2nd Year 1st Sem -->
+        <details class="custom-details">
+          <summary>
+            Second Year (1st Semester) EM - 21003: Engineering Mathematics III
+          </summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter No.</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Chapter No.">CH(1)</td>
+                  <td data-label="Title">
+                    Application of Definite Integrals (6.1 - 6.4)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(2)</td>
+                  <td data-label="Title">
+                    Integrals and Transcendental Functions (7.1 - 7.3)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(3)</td>
+                  <td data-label="Title">
+                    Parametric Equations and Polar Coordinates (11.1 - 11.5)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(4)</td>
+                  <td data-label="Title">
+                    Vector and the Geometry of Space (12.1 - 12.5)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(5)</td>
+                  <td data-label="Title">Linear Algebra II (7.8, 8.1)</td>
+                </tr>
+                <tr>
+                  <td colspan="2" data-label="REFERENCE">
+                    <p>REFERENCES</p>
+                    <ul type="disc">
+                      <li>
+                        [1] George B. Thomas, M. D. Weir, J. R. Hass, Thomas’
+                        Calculus: Early Transcendentals, Twelfth Edition,
+                        Addison - Wesley, 2006.
+                      </li>
+                      <li>
+                        [2] Erwin Kreyszig, H. Kreyszig, E. J. Norminton,
+                        Advanced Engineering Mathematics, 10th Edition, John
+                        Wieley & Sons Inc., 2011.
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+        <!-- 2nd Year 2nd Sem -->
+        <details class="custom-details">
+          <summary>
+            Second Year (2nd Semester) EM - 22004: Engineering Mathematics IV
+          </summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter No.</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Chapter No.">CH(1)</td>
+                  <td data-label="Title">
+                    Vector-Valued Functions and Motion in Space (13.1 - 13.6)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(2)</td>
+                  <td data-label="Title">Partial Derivatives (14.3 - 14.7)</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(3)</td>
+                  <td data-label="Title">Multiple Integrals (15.1 - 15.5)</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(4)</td>
+                  <td data-label="Title">
+                    Integration in Vector Fields (16.1 - 16.7)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(5)</td>
+                  <td data-label="Title">First Order ODEs (1.1 – 1.5)</td>
+                </tr>
+                <tr>
+                  <td colspan="2" data-label="REFERENCE">
+                    <p>REFERENCES</p>
+                    <ul type="disc">
+                      <li>
+                        [1] George B. Thomas, M. D. Weir, J. R. Hass, Thomas’
+                        Calculus: Early Transcendentals, Twelfth Edition,
+                        Addison - Wesley, 2006.
+                      </li>
+                      <li>
+                        [2] Erwin Kreyszig, H. Kreyszig, E. J. Norminton,
+                        Advanced Engineering Mathematics, 10th Edition, John
+                        Wieley & Sons Inc., 2011.
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 3rd Year 1st Sem -->
+        <details class="custom-details">
+          <summary>
+            Third Year (1st Semester) EM - 31005: Engineering Mathematics V
+          </summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter No.</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Chapter No.">CH(1)</td>
+                  <td data-label="Title">
+                    Infinite Sequences and Series (10.1 - 10.5)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(2)</td>
+                  <td data-label="Title">
+                    Second Order Linear ODEs (2.1, 2.2, 2.3, 2.5, 2.6, 2.7,
+                    2.10)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(3)</td>
+                  <td data-label="Title">
+                    Higher Order Linear ODEs (3.1 - 3.3)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(4)</td>
+                  <td data-label="Title">
+                    Laplace Transforms (6.1, 6.2, 6.3, 6.5, 6.6)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(5)</td>
+                  <td data-label="Title">Fourier Analysis (11.1, 11.2)</td>
+                </tr>
+                <tr>
+                  <td colspan="2" data-label="REFERENCE">
+                    <p>REFERENCES</p>
+                    <ul type="disc">
+                      <li>
+                        [1] George B. Thomas, M. D. Weir, J. R. Hass, Thomas’
+                        Calculus: Early Transcendentals, Twelfth Edition,
+                        Addison - Wesley, 2006.
+                      </li>
+                      <li>
+                        [2] Erwin Kreyszig, H. Kreyszig, E. J. Norminton,
+                        Advanced Engineering Mathematics, 10th Edition, John
+                        Wieley & Sons Inc., 2011.
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 3rd Year 2nd Sem -->
+        <details class="custom-details">
+          <summary>
+            Third Year (2nd Semester) EM - 32006: Engineering Mathematics VI
+          </summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter No.</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Chapter No.">CH(1)</td>
+                  <td data-label="Title">
+                    Complex Numbers and Functions. Complex Differentiation (13.3
+                    – 13.7)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(2)</td>
+                  <td data-label="Title">Complex Integration (14.1 – 14.4)</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(3)</td>
+                  <td data-label="Title">
+                    Power Series, Taylor Series (15.1 – 15.4)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(4)</td>
+                  <td data-label="Title">
+                    Laurent Series. Residue Integration (16.1 – 16.4)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(5)</td>
+                  <td data-label="Title">Conformal Mapping (17.1 – 17.3)</td>
+                </tr>
+                <tr>
+                  <td colspan="2" data-label="REFERENCE">
+                    <p>REFERENCES</p>
+                    <ul type="disc">
+                      <li>
+                        [1] Erwin Kreyszig, H. Kreyszig, E. J. Norminton,
+                        Advanced Engineering Mathematics, 10th Edition, John
+                        Wieley & Sons Inc., 2011.
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 4th Year 1st Sem -->
+        <details class="custom-details">
+          <summary>
+            Fourth Year (1st Semester) EM - 41007: Engineering Mathematics VII
+          </summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter No.</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Chapter No.">CH(1)</td>
+                  <td data-label="Title">
+                    Numeric in General (19.2, 19.3, 19.5)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(2)</td>
+                  <td data-label="Title">
+                    Numeric Linear Algebra (20.2 - 20.9)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(3)</td>
+                  <td data-label="Title">Numeric for ODEs (21.1, 21.3)</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(4)</td>
+                  <td data-label="Title">
+                    Unconstrained Optimization. Linear Programming (22.1 - 22.4)
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" data-label="REFERENCE">
+                    <p>REFERENCES</p>
+                    <ul type="disc">
+                      <li>
+                        [1] Erwin Kreyszig, H. Kreyszig, E. J. Norminton,
+                        Advanced Engineering Mathematics, 10th Edition, John
+                        Wieley & Sons Inc., 2011.
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- 4th Year 2nd Sem -->
+        <details class="custom-details">
+          <summary>
+            Fourth Year (2nd Semester) EM - 42008: Engineering Mathematics VIII
+          </summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter No.</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Chapter No.">CH(1)</td>
+                  <td data-label="Title">
+                    Graphs. Combinatorial Optimization (23.1 - 23.7)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(2)</td>
+                  <td data-label="Title">
+                    Data Analysis Probability Theory & Queuing Theory (24.5 -
+                    24.9)
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(3)</td>
+                  <td data-label="Title">Confidence Intervals (25.3)</td>
+                </tr>
+                <tr>
+                  <td colspan="2" data-label="REFERENCE">
+                    <p>REFERENCES</p>
+                    <ul type="disc">
+                      <li>
+                        [1] Erwin Kreyszig, H. Kreyszig, E. J. Norminton,
+                        Advanced Engineering Mathematics, 10th Edition, John
+                        Wieley & Sons Inc., 2011.
+                      </li>
+                      <li>
+                        [2] J. K. Sharama, Operations Research: Theory and
+                        Applications, Macmillan Inc., 2000.
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- ME 1st Sem -->
+        <details class="custom-details">
+          <summary>
+            ME (1st Semester) EM - 71009: Advanced Engineering Mathematics I
+          </summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter No.</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Chapter No.">CH(1)</td>
+                  <td data-label="Title">
+                    Linear Algebra: Matrix Eigenvalue Problems
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(2)</td>
+                  <td data-label="Title">Numerics for ODEs and PDEs.</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(3)</td>
+                  <td data-label="Title">Fourier Method</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(4)</td>
+                  <td data-label="Title">Boundary Value Problems</td>
+                </tr>
+                <tr>
+                  <td colspan="2" data-label="REFERENCE">
+                    <p>REFERENCES</p>
+                    <ul type="disc">
+                      <li>
+                        [1] Erwin Kreyszig, H. Kreyszig, E. J. Norminton,
+                        Advanced Engineering Mathematics, 10th Edition, John
+                        Wieley & Sons Inc., 2011.
+                      </li>
+                      <li>
+                        [2] James Ward Brown, Ruel V. Churchill “Fourier Series
+                        and Boundary Values Problems”, Eight Edition.
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- ME 2nd Sem -->
+        <details class="custom-details">
+          <summary>
+            ME (2nd Semester) EM - 72010: Advanced Engineering Mathematics II
+          </summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Chapter No.</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Chapter No.">CH(1)</td>
+                  <td data-label="Title">Fourier Integrals and Applications</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(2)</td>
+                  <td data-label="Title">Orthonormal Sets</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(3)</td>
+                  <td data-label="Title">
+                    Sturm – Liouville Problems and Applications
+                  </td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(4)</td>
+                  <td data-label="Title">Bessel Functions and Applications</td>
+                </tr>
+                <tr>
+                  <td data-label="Chapter No.">CH(4)</td>
+                  <td data-label="Title">
+                    Legendre Polynomials and Applications
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" data-label="REFERENCE">
+                    <p>REFERENCES</p>
+                    <ul type="disc">
+                      <li>
+                        [1] Erwin Kreyszig, H. Kreyszig, E. J. Norminton,
+                        Advanced Engineering Mathematics, 10th Edition, John
+                        Wieley & Sons Inc., 2011.
+                      </li>
+                      <li>
+                        [2] James Ward Brown, Ruel V. Churchill “Fourier Series
+                        and Boundary Values Problems”, Eight Edition.
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+  </body>
+</html>

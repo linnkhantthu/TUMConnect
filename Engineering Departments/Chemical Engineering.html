@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Chemical Engineering</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+
+      /* Image Slider Container */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>History</h2>
+        <p>
+          Department of Chemical Engineering provides a chemical engineering
+          education to our graduate students and post graduate students. In
+          Technological University (Mandalay), the plastic and rubber
+          engineering department was opened in 1993 to produce technicians with
+          diplomas. And then the food and chemical engineering was opened in
+          2000 to produces technicians with diplomas. Then the Bachelor of
+          Engineering (BE) degree was first offered from 2000 to now and the
+          post graduate program was started in 2006.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>
+          To efficient professional chemical engineers for future and to produce
+          good chemical engineers who play a leading role in factories and
+          workshops to develop our country by applying the chemical engineering
+          subjects theoretically and practically
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <p>
+          The Chemical Engineering Program has the primary mission of providing
+          a quality engineering education with
+        </p>
+        <ul>
+          <li>
+            To provide academic programs of the high quality and standard of
+            chemical engineering to have to fulfill the individuals to local and
+            development
+          </li>
+          <li>
+            To produce qualified chemical engineers suitable for the need of the
+            jobs
+          </li>
+          <li>
+            To be professional chemical engineers in the tasks which are related
+            to chemical engineering
+          </li>
+          <li>
+            To be an engineer who can generate the sophisticated technology
+            based on science and technology known
+          </li>
+          <li>
+            To apply knowledge and skills learnt well to improve ourselves and
+            our country
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Objectives</h2>
+        <ul>
+          <li>
+            To be more than 90% achievement of the undergraduate students
+            attending in chemical engineering program
+          </li>
+          <li>To receive no more than 5 complaints of the students</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Degree Awards</h2>
+        <ul>
+          <li>Bachelor of Engineering B.E (Chemical)</li>
+          <li>Master of Engineering M.E (Chemical)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Laboratories and Workshops</h2>
+        <ul>
+          <li>Analysis Laboratory I</li>
+          <li>Analysis Laboratory II</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tables -->
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Curriculum for Bachelor of Chemical Engineering</h2>
+        <!-- First Year / 1st Semester -->
+        <details class="custom-details" open>
+          <summary>
+            FIRST YEAR B.E. (Common courses for all disciplines)
+          </summary>
+          <div class="table-container">
+            <h3>SEMESTER ONE (15 Weeks)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">M-11001</td>
+                  <td data-label="Courses">Myanmar I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="Non F2F">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">E 11001</td>
+                  <td data-label="Courses">English I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EM 11001</td>
+                  <td data-label="Courses">Engineering Mathematics I</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">Ech 11001</td>
+                  <td data-label="Courses">Engineering Chemistry</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">5</td>
+                  <td data-label="SLT">11</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ME 11011</td>
+                  <td data-label="Courses">Basic Engineering Drawing</td>
+                  <td data-label="L">1</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">3</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ChE 11011</td>
+                  <td data-label="Courses">Material Balances</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>14</td>
+                  <td>5</td>
+                  <td>6</td>
+                  <td>25</td>
+                  <td>24</td>
+                  <td>49</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>SEMESTER TWO(15 Weeks)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">M 12001</td>
+                  <td data-label="Courses">Myanmar II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="Non F2F">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">E 12011</td>
+                  <td data-label="Courses">English II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EM 12002</td>
+                  <td data-label="Courses">Engineering Mathematics II</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EPh 12001</td>
+                  <td data-label="Courses">Engineering Physics</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">5</td>
+                  <td data-label="SLT">11</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ME 12002</td>
+                  <td data-label="Courses">
+                    Workshop Technology and Workplace Safety
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">1</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ME 12051</td>
+                  <td data-label="Courses">Computer Aided Machine Drawing</td>
+                  <td data-label="L">1</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">3</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">ChE 12011</td>
+                  <td data-label="Courses">Energy Balances</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>17</td>
+                  <td>5</td>
+                  <td>7</td>
+                  <td>28</td>
+                  <td>27</td>
+                  <td>55</td>
+                  <td>21</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Second Year -->
+        <details class="custom-details">
+          <summary>SECOND YEAR B.E. (Chemical Engineering)</summary>
+          <div class="table-container">
+            <h3>SEMESTER THREE (15 Weeks)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 21021</td>
+                  <td data-label="Courses">English III</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 21003</td>
+                  <td data-label="Courses">Engineering Mathematics III</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME 21005</td>
+                  <td data-label="Courses">
+                    Engineering Mechanics I (Statics)
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EcE 21031</td>
+                  <td data-label="Courses">Applied Electrical Engineering</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ECh 21002</td>
+                  <td data-label="Courses">Organic Chemistry</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ChE 21012</td>
+                  <td data-label="Courses">Momentum Transfer</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>16</td>
+                  <td>6</td>
+                  <td>6</td>
+                  <td>28</td>
+                  <td>28</td>
+                  <td>56</td>
+                  <td>20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>SEMESTER FOUR (15 Weeks)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EM 22004</td>
+                  <td data-label="Courses">Engineering Mathematics IV</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 22015</td>
+                  <td data-label="Courses">
+                    Engineering Mechanics II (Dynamics)
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">CEIT 22001</td>
+                  <td data-label="Courses">Programming Language</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">Met 22043</td>
+                  <td data-label="Courses">Engineering Materials</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ChE 22013</td>
+                  <td data-label="Courses">
+                    Chemical Engineering Thermodynamics
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ChE 22022</td>
+                  <td data-label="Courses">Heat Transfer</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>17</td>
+                  <td>5</td>
+                  <td>6</td>
+                  <td>28</td>
+                  <td>28</td>
+                  <td>56</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    Training: Two weeks during the vacation (Chemical Industrial
+                    Safety and Health) Note: Lecture Period is 15 Weeks for each
+                    semester. Credit Points are based on student learning time
+                    (SLT). 1 Credit point = 40 SLT hour.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Third Year -->
+        <details class="custom-details">
+          <summary>THIRD YEAR B.E. (Chemical Engineering)</summary>
+          <div class="table-container">
+            <h3>SEMESTER FIVE (15 Weeks)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EM 31003</td>
+                  <td data-label="Courses">Engineering Mathematics V</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 31014</td>
+                  <td data-label="Courses">Strength of Materials I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ChE 31014</td>
+                  <td data-label="Courses">Elective I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="Non F2F">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ChE 31032</td>
+                  <td data-label="Courses">Mass Transfer</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ChE 31042</td>
+                  <td data-label="Courses">Particle Mechanics</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ChE 31013</td>
+                  <td data-label="Courses">Physical Chemistry</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>16</td>
+                  <td>6</td>
+                  <td>7</td>
+                  <td>29</td>
+                  <td>29</td>
+                  <td>58</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    <div style="text-align: left">
+                      <h3>* Elective I</h3>
+                      <p>
+                        The student is required to take ONE of the following
+                        elective courses:
+                      </p>
+                      <ol>
+                        <li>Fertilizer Technology</li>
+                        <li>Food Technology</li>
+                        <li>Plastic and Rubber (Polymers) Technology</li>
+                        <li>
+                          Surface Coating and Building Chemical Technology
+                        </li>
+                      </ol>
+                      <p>
+                        <strong
+                          >Industrial Practical Training: Two weeks during the
+                          vacation</strong
+                        >
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EM 32013</td>
+                  <td data-label="Courses">Engineering Mathematics VI</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 32014</td>
+                  <td data-label="Courses">Strength of Materials II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ChE 32014</td>
+                  <td data-label="Courses">Elective II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="Non F2F">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ChE 32015</td>
+                  <td data-label="Courses">
+                    Quality Control and Experimental Design
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ChE 32017</td>
+                  <td data-label="Courses">
+                    Industrial and Environmental Microbiology
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ChE 32024</td>
+                  <td data-label="Courses">
+                    Environmental Study for Engineering
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>16</td>
+                  <td>6</td>
+                  <td>5</td>
+                  <td>27</td>
+                  <td>27</td>
+                  <td>54</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    <div style="text-align: left">
+                      <h3>Elective II</h3>
+                      <p>
+                        The student is required to take ONE of the following
+                        elective courses
+                      </p>
+                      <ol>
+                        <li>Biomass and Renewable Technology</li>
+                        <li>Fats and Oils Technology</li>
+                        <li>Petrochemical and Petroleum Refinery Technology</li>
+                        <li>Pulp and Paper Technology</li>
+                      </ol>
+                      <p>
+                        <strong
+                          >Industrial Practical Training: Two weeks during the
+                          vacation</strong
+                        >
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Fourth Year -->
+        <details class="custom-details">
+          <summary>FOURTH YEAR B.E. (Chemical Engineering)</summary>
+          <div class="table-container">
+            <h3>SEMESTER SEVEN (15 Weeks)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">ME 41021</td>
+                  <td data-label="Courses">Design of Machine Elements</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">2</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">HSS 41001</td>
+                  <td data-label="Courses">
+                    Humanity and Social Science (HSS1)
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ChE 41025</td>
+                  <td data-label="Courses">
+                    Instrumentation, and Chemical and Biomolecular Process
+                    Control
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ChE 41026</td>
+                  <td data-label="Courses">
+                    Chemical Reaction Kinetics and Reactor Design
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ChE 41014</td>
+                  <td data-label="Courses">Elective III</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="Non F2F">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ChE 41036</td>
+                  <td data-label="Courses">
+                    Chemical Engineering Integrated Design Project I
+                  </td>
+                  <td data-label="L">0</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">6</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>13</td>
+                  <td>6</td>
+                  <td>8</td>
+                  <td>25</td>
+                  <td>25</td>
+                  <td>50</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    <div style="text-align: left">
+                      <h3>Elective III</h3>
+                      <p>
+                        The student is required to take ONE of the following
+                        elective courses
+                      </p>
+                      <ol>
+                        <li>Electrochemical Technology</li>
+                        <li>Environmental Management System</li>
+                        <li>Nanotechnology</li>
+                        <li>Water and Wastewater Treatment Technology</li>
+                      </ol>
+                      <p>
+                        <strong
+                          >Industrial Practical Training: Two weeks during the
+                          vacation For ChE 41036, there is no final written
+                          exam.
+                        </strong>
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>SEMESTER EIGHT (15 Weeks)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">HSS 42001</td>
+                  <td data-label="Courses">
+                    Humanity and Social Science (HSS2)
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ME 42008</td>
+                  <td data-label="Courses">Engineering Management</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="Non F2F">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ChE 42036</td>
+                  <td data-label="Courses">
+                    Economics and Business Management for Chemical Engineers
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ChE 42052</td>
+                  <td data-label="Courses">Biochemical Engineering</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ChE 42024</td>
+                  <td data-label="Courses">
+                    Green Engineering for Chemical Engineers
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">5</td>
+                  <td data-label="SLT">9</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ChE 42036</td>
+                  <td data-label="Courses">
+                    Chemical Engineering Integrated Design Project II
+                  </td>
+                  <td data-label="L">0</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">6</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>13</td>
+                  <td>5</td>
+                  <td>7</td>
+                  <td>24</td>
+                  <td>25</td>
+                  <td>51</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    <div style="text-align: left">
+                      <p>
+                        <strong
+                          >Industrial Practical Training: Two weeks during the
+                          vacation For ChE 42036, there is no final written
+                          exam.
+                        </strong>
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Fifth Year -->
+        <details class="custom-details">
+          <summary>FIFTH YEAR B.E. (Chemical Engineering)</summary>
+          <div class="table-container">
+            <h3>SEMESTER NINE (15 Weeks)</h3>
+            <i
+              >ATTACHMENT PROGRAMME at suitable Design Office/ Construction
+              Site/ Industry (Fertilizer, Petroleum Refining) etc. (4 Credit
+              Points) Note: The student must submit diary, report and
+              recommendation of the supervisor of the Attachment program (at
+              training place) and take Viva voce exam. If not satisfactory, the
+              student must supplement the program until his/her work is
+              satisfactory. Otherwise, the student will not be conferred the
+              degree. No credit point will be assigned to this program.
+            </i>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">ChE 51066</td>
+                  <td data-label="Courses">
+                    Research Methodology and Statistical Analysis
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ChE 51046</td>
+                  <td data-label="Courses">
+                    Modeling, Simulation, Optimization and Chemical Process
+                    Design
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ChE 51036</td>
+                  <td data-label="Courses">
+                    Plant Design for Chemical Engineering
+                  </td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">ChE 51056</td>
+                  <td data-label="Courses">Internship</td>
+                  <td data-label="L">0</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">6</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">6</td>
+                  <td data-label="SLT">12</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>8</td>
+                  <td>3</td>
+                  <td>7</td>
+                  <td>18</td>
+                  <td>18</td>
+                  <td>36</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    <div style="text-align: left">
+                      <p>For ChE 51056, there are no final written exams.</p>
+                      <p>Internship: Two months during the vacation</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>SEMESTER TEN (15 Weeks)</h3>
+            <i
+              >GRADUATION PROJECT / RESEARCH REPORT (12 Credit Points) <br />
+              Note: The student must present the Project / Report and take Viva
+              voice exam. <br />
+              If the Project / Report is not satisfactory, the student must
+              upgrade it while undergoing Attachment Programme in SEMESTER TWO.
+              <br />
+              Students must take part in seminars, talks, workshops and
+              excursion tours (no credit points scored for these activities)
+            </i>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Period/week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">ChE 52086</td>
+                  <td data-label="Courses">Industrial Training Assessment</td>
+                  <td data-label="L">0</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="F2F">2</td>
+                  <td data-label="Non F2F">2</td>
+                  <td data-label="SLT">4</td>
+                  <td data-label="Credit Points">1</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">ChE 52076</td>
+                  <td data-label="Courses">Graduation Thesis</td>
+                  <td data-label="L">0</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">24</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="Non F2F">24</td>
+                  <td data-label="SLT">30</td>
+                  <td data-label="Credit Points">12</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>26</td>
+                  <td>8</td>
+                  <td>26</td>
+                  <td>34</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    <div style="text-align: left">
+                      <p>
+                        Industrial Practical Training: Two weeks during the
+                        vacation
+                      </p>
+                      <p>
+                        For ChE 52076, and ChE 52086, there are no final written
+                        exam.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>CURRICULUM FOR Master of Engineering (Chemical Engineering)</h2>
+        <!-- First Year / 1st Semester -->
+        <details class="custom-details" open>
+          <summary>Year I</summary>
+          <div class="table-container">
+            <h3>First Semester</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Code</th>
+                  <th>Courses</th>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                  <th>Credit Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E 71011</td>
+                  <td>English</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM 71009</td>
+                  <td>Advanced Engineering Mathematics I</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>ChE 71072</td>
+                  <td>Chemical Reaction Kinetics and Reactor Design</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>ChE 71023</td>
+                  <td>Physical Chemistry</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>ChE 71035</td>
+                  <td>Automatic Process Control</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>ChE 71082</td>
+                  <td>Transport Phenomena (Momentum Transport)</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>19</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>24</td>
+                  <td>21.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Second Semester</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Code</th>
+                  <th>Courses</th>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                  <th>Credit Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E 72011</td>
+                  <td>English</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM 72010</td>
+                  <td>Advanced Engineering Mathematics II</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>ChE 72033</td>
+                  <td>
+                    Chemical Engineering Dynamics: Modeling and Computer
+                    Simulation for Chemical Engineering
+                  </td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>ChE 72036</td>
+                  <td>Statistical Design</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>ChE 72092</td>
+                  <td>Transport Phenomena (Energy)</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>ChE 72102</td>
+                  <td>Transport Phenomena (Mass)</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>19</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>24</td>
+                  <td>21.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Second Year -->
+        <details class="custom-details">
+          <summary>Year II</summary>
+          <div class="table-container">
+            <h3>SEMESTER THREE (15 Weeks)</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Code</th>
+                  <th>Courses</th>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Tot</th>
+                  <th>Credit Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>ChE-73008</td>
+                  <td>Thesis</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>32</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>32</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/mech-field-trip-2024-2025.png.png",
+            caption: "Field Trip (2024-2025)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Fitting-Shop-Practical-Class.png",
+            caption: "Fitting Shop Practical Class",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Lathe-Machine-Practical-Class.png",
+            caption: "Lathe Machine Practical Class",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/mech-student-autocad-drawing-training.png",
+            caption: "Student AutoCAD Drawing Training",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Solid-Mechanics-Lab.png",
+            caption: "Solid Mechanics Lab",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Welding-Shop-Practical-Class.png",
+            caption: "Welding Shop Practical Class",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/2024-2025-Academic-Year-Mechanical-မေဂျာဘောလုံး-အားကစားသမားများ.png",
+            caption: "Mechanical Major ဘောလုံးအားကစားသမားများ (2024-2025)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/2024-2025-Mechanical-major-students-ထမနဲထိုး-ပြိုင်ပွဲ.png",
+            caption: "Mechanical Major Students ထမနဲထိုးပြိုင်ပွဲ(2024-2025)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/2024-2025-Mechanical-Fresher-Welcome.png",
+            caption: "Mechanical Fresher Welcome(2024-2025)",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide";
+          if (idx === 0) slide.classList.add("active");
+          slide.innerHTML = `
+        <img src="${img.src}" alt="Slide ${idx + 1}">
+        <div class="caption">${img.caption}</div>
+      `;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          let next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+        }
+
+        function prevSlide() {
+          let prev = (currentIndex - 1 + slides.length) % slides.length;
+          showSlide(prev);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        });
+
+        function handleSwipe() {
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        }
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>

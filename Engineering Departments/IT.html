@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Information Technology Engineering</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+
+      /* Image Slider Container */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>History</h2>
+        <p>
+          Information Technology Engineering Department in Technological
+          University (Mandalay) was established in 1999. Therefore, Information
+          Technology Engineering Department of TUM is 24 years old in
+          engineering education service.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>
+          The Department of Information Technology Engineering aims to become a
+          department that systematically trains the students at the
+          Technological University (Mandalay) to produce research and technology
+          engineers who are full of talent, excellent and skilled, and have the
+          ability to innovate.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <ul>
+          <li>
+            Technology University (Mandalay), The Department of Information
+            Technology Engineering will teach undergraduate information
+            technology engineering courses in accordance with relevant and
+            useful curricula.
+          </li>
+          <li>
+            We will aim to produce IT graduate engineers who are full of talent,
+            excellent and meet the practical needs of the external workplace,
+            which are needed in the region.
+          </li>
+          <li>
+            In addition, we will aim to continuously improve the technology and
+            employment opportunities by connecting with domestic and
+            international industry company organizations.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Objectives</h2>
+        <ul>
+          <li>
+            To increase the passing percentage (85 %) of the students attending
+            undergraduate courses in information technology engineering.
+          </li>
+          <li>To receive complaints from customers not more than (5%).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Degree Awards</h2>
+        <ul>
+          <li>Bachelor of Engineering B.E (IT)</li>
+          <li>Master of Engineering M.E (IT)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Research Areas</h2>
+        <ul>
+          <li>Software Development</li>
+          <li>Communication and Networking</li>
+          <li>Cloud Computing and Big Data Management</li>
+          <li>Computer Vision and Artificial Intelligence</li>
+          <li>Computer Hardware and Embedded Systems</li>
+          <li>
+            Latest Projects:
+            <ul>
+              <ul>
+                <li>Onboard Passenger Wi-Fi System for City Circular Trains</li>
+                <li>Machine Translation System for English Myanmar</li>
+                <li>TUMConnect</li>
+                <li>
+                  Design and Simulation of OSPF Multi-Area Optimization for
+                  Efficient Enterprise Routing
+                </li>
+                <li>
+                  Developing a Standalone ChatGPT Terminal using Raspberry Pi
+                </li>
+                <li>Classification of Myanmar Currency</li>
+                <li>
+                  COVID-19 Recognition System Using ResNet: Enhancing Diagnostic
+                  Accuracy with Deep Learning
+                </li>
+                <li>
+                  Skin Lesion Segmentation and Classification Using SVM and
+                  Image Processing Techniques
+                </li>
+                <li>
+                  Efficient Deep Learning Approach for Multiclass Brain Tumor
+                  Classification Using MobileNet
+                </li>
+                <li>
+                  Developing Text Spam Classifier Using Text Classification and
+                  Machine Learning Model
+                </li>
+                <li>
+                  Development of a Drowsiness Detection and Wake Bot System for
+                  Enhanced Driver Safety
+                </li>
+              </ul>
+              <li>
+                Integrated Design Project:
+                <ul>
+                  <li>Setting Up Window Print Server</li>
+                  <li>Solar Tracking System</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Laboratories and Workshops</h2>
+        <ul>
+          <ul>
+            <li>Software Development Lab</li>
+            <li>Communication and Networking Lab</li>
+            <li>Computer Vision and Artificial Intelligence Lab</li>
+            <li>Computer Hardware and Embedded Systems Lab</li>
+          </ul>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Location</h2>
+        <p>
+          Information Technology Engineering Department is situated at Room
+          (10-A) in TUM.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Department Email</h2>
+        <p>it.tumdyobo@gmail.com</p>
+      </div>
+    </div>
+
+    <div class="content-block" style="padding: 0">
+      <div class="content-inner">
+        <h2>Activities</h2>
+        <div class="slider-container" id="sliderContainer">
+          <div class="slider-wrapper" id="sliderWrapper">
+            <!-- Slides will be Injected -->
+          </div>
+          <div class="slider-nav">
+            <button id="prevBtn" aria-label="Previous Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              </svg>
+            </button>
+            <button id="nextBtn" aria-label="Next Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tables -->
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Curriculum for Bachelor of Engineering (2024-2025 Intake)</h2>
+        <p>
+          <strong
+            >***10 Regular Semesters with Industrial Training in Semester
+            Breaks***
+          </strong>
+        </p>
+        <p>
+          <strong
+            >NOTE : Credit points are based on Student Learning Time (SLT).
+          </strong>
+        </p>
+        <p>40 SLT Hours for one Credit Point</p>
+        <p>48 max. SLT Hours per week</p>
+        <p>16 weeks for Contact Period in one Semester</p>
+        <p>40 desired SLT Hours per week</p>
+        <!-- First Year -->
+        <details class="custom-details" open>
+          <summary>FIRST YEAR B.E. (CEIT)</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">M-1001</td>
+                  <td data-label="Courses">Myanmar I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">3</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">E-1001</td>
+                  <td data-label="Courses">English I</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ECh-1001</td>
+                  <td data-label="Courses">Engineering Chemistry</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Non F2F">5</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="SLT">11</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EM-1001</td>
+                  <td data-label="Courses">Engineering Mathematics I</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">ME-1011</td>
+                  <td data-label="Courses">Basic Engineering Drawing</td>
+                  <td data-label="L">1</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">3</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">CEIT-1000</td>
+                  <td data-label="Courses">Introduction to Computer Systems</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">2</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>13</td>
+                  <td>5</td>
+                  <td>7</td>
+                  <td>22</td>
+                  <td>25</td>
+                  <td>47</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">M-2001</td>
+                  <td data-label="Courses">Myanmar II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">3</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="SLT">6</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">E-2001</td>
+                  <td data-label="Courses">English II</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EM-2002</td>
+                  <td data-label="Courses">Engineering Mathematics II</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">EPh-2001</td>
+                  <td data-label="Courses">Engineering Physics</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Non F2F">5</td>
+                  <td data-label="F2F">6</td>
+                  <td data-label="SLT">11</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">WS-2012</td>
+                  <td data-label="Courses">
+                    Occupational Safety &amp; Health and Workshop Practice
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Non F2F">3</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">7</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">CEIT-2001</td>
+                  <td data-label="Courses">C Programming</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Non F2F">3</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">7</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>14</td>
+                  <td>4</td>
+                  <td>7</td>
+                  <td>22</td>
+                  <td>25</td>
+                  <td>47</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Second Year -->
+        <details class="custom-details">
+          <summary>SECOND YEAR B.E. (CEIT)</summary>
+          <div class="table-container">
+            <h3>Semester III</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E-3001</td>
+                  <td data-label="Courses">English III</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM-3003</td>
+                  <td data-label="Courses">Engineering Mathematics III</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">ME-3015</td>
+                  <td data-label="Courses">Engineering Mechanics (Statics)</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">CEIT-3010</td>
+                  <td data-label="Courses">Digital Electronics</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">CEIT-3020</td>
+                  <td data-label="Courses">Engineering Circuit Analysis</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">CEIT-3011</td>
+                  <td data-label="Courses">
+                    Object Oriented Programming (Using C++)
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>14</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester IV</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E-4001</td>
+                  <td data-label="Courses">English IV</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM-4004</td>
+                  <td data-label="Courses">Engineering Mathematics IV</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">CEIT-4021</td>
+                  <td data-label="Courses">Advanced Java Programming</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">2</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">CEIT-4041</td>
+                  <td data-label="Courses">Database Management System</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">CEIT-4051</td>
+                  <td data-label="Courses">Data Structures and Algorithms</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">CEIT-4002</td>
+                  <td data-label="Courses">Digital Communications</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>11</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>20</td>
+                  <td>20</td>
+                  <td>40</td>
+                  <td>15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Third Year -->
+        <details class="custom-details">
+          <summary>THIRD YEAR B.E. (CEIT)</summary>
+          <div class="table-container">
+            <h3>Semester V</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EM-5005</td>
+                  <td data-label="Courses">Engineering Mathematics V</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">CEIT-5030</td>
+                  <td data-label="Courses">Computer Organization and Design</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">CEIT-5061</td>
+                  <td data-label="Courses">Operating System</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">CEIT-5071</td>
+                  <td data-label="Courses">Software Engineering</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">CEIT-5012</td>
+                  <td data-label="Courses">Networking Fundamentals</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">CEIT-5006</td>
+                  <td data-label="Courses">Professional Practice in IT</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="SLT">7</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>13</td>
+                  <td>6</td>
+                  <td>4</td>
+                  <td>24</td>
+                  <td>23</td>
+                  <td>47</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester VI</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">EM-6006</td>
+                  <td data-label="Courses">Engineering Mathematics VI</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">CEIT-6040</td>
+                  <td data-label="Courses">Computer Architecture</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">CEIT-6022</td>
+                  <td data-label="Courses">Advanced Networking</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">CEIT-6003</td>
+                  <td data-label="Courses">Information Security</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">CEIT-6004</td>
+                  <td data-label="Courses">Artificial Intelligence</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">CEIT-6005</td>
+                  <td data-label="Courses">Signal and Systems</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>13</td>
+                  <td>6</td>
+                  <td>5</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- FOURTH YEAR B.E. (CEIT) -->
+        <details class="custom-details">
+          <summary>FOURTH YEAR B.E. (CEIT)</summary>
+          <div class="table-container">
+            <h3>Semester VII</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">HSS-7001</td>
+                  <td data-label="Courses">Humanities and Social Science I</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">CEIT-7050</td>
+                  <td data-label="Courses">Embedded System</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">CEIT-7032</td>
+                  <td data-label="Courses">
+                    Wireless and Mobile Communication
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">CEIT-7015</td>
+                  <td data-label="Courses">Digital Image Processing</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">CEIT-7016</td>
+                  <td data-label="Courses">Business IT</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">CEIT-7xxx</td>
+                  <td data-label="Courses">
+                    Elective I <br />
+                    CEIT-7013 Cryptography and Network Security <br />
+                    CEIT-7014 Data Mining
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>14</td>
+                  <td>6</td>
+                  <td>4</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester VIII</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">HSS-8001</td>
+                  <td data-label="Courses">Humanities and Social Science II</td>
+                  <td data-label="L">3</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">CEIT-8042</td>
+                  <td data-label="Courses">Cloud Computing</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">CEIT-8052</td>
+                  <td data-label="Courses">Information Theory</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">CEIT-8033</td>
+                  <td data-label="Courses">
+                    Blockchain Technology and Cryptocurrency
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">CEIT-8026</td>
+                  <td data-label="Courses">Project Management</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">CEIT-8xxx</td>
+                  <td data-label="Courses">
+                    Elective II<br />
+                    CEIT-8023 Computer Forensics /<br />
+                    CEIT-8024 Big Data Analysis
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">1</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">8</td>
+                  <td data-label="Credit Points">3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>13</td>
+                  <td>6</td>
+                  <td>5</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td>18</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester Break</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">CEIT-9046</td>
+                  <td data-label="Courses">Internship</td>
+                  <td data-label="L">0</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">120</td>
+                  <td data-label="F2F">40</td>
+                  <td data-label="SLT">160</td>
+                  <td data-label="Credit Points">4</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- FIFTH YEAR B.E.(CEIT) -->
+        <details class="custom-details">
+          <summary>FIFTH YEAR B.E.(CEIT)</summary>
+          <div class="table-container">
+            <h3>Semester IX</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">HSS-9003</td>
+                  <td data-label="Courses">IT Law and Regulations</td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="SLT">7</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">CEIT-9036</td>
+                  <td data-label="Courses">
+                    Research Methodology & Statistical Analysis
+                  </td>
+                  <td data-label="L">2</td>
+                  <td data-label="T">1</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">4</td>
+                  <td data-label="F2F">3</td>
+                  <td data-label="SLT">7</td>
+                  <td data-label="Credit Points">2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">CEIT-9056</td>
+                  <td data-label="Courses">Integrated Design Project</td>
+                  <td data-label="L">0</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">11</td>
+                  <td data-label="F2F">4</td>
+                  <td data-label="SLT">15</td>
+                  <td data-label="Credit Points">6</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>19</td>
+                  <td>10</td>
+                  <td>29</td>
+                  <td>10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester X</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="6">Equivalent Hours per Week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Non F2F</th>
+                  <th>F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">CEIT-10066</td>
+                  <td data-label="Courses">Graduation Thesis</td>
+                  <td data-label="L">0</td>
+                  <td data-label="T">0</td>
+                  <td data-label="P">0</td>
+                  <td data-label="Non F2F">22</td>
+                  <td data-label="F2F">8</td>
+                  <td data-label="SLT">30</td>
+                  <td data-label="Credit Points">12</td>
+                </tr>
+                <tr>
+                  <td colspan="3">Total</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>22</td>
+                  <td>8</td>
+                  <td>30</td>
+                  <td>12</td>
+                </tr>
+                <tr style="text-align: left">
+                  <td colspan="10">
+                    <p>
+                      Total Credit Point (SLT) 167 180 7200 Hrs <br />
+                      Maths, Science and Gen: Education #REF! 60 2400 Hrs
+                      <br />
+                      Engineering Courses #REF! 120 4800 Hrs
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/InHouseTraining-GP.jpg",
+            caption: "In House Training",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/IT-Football.jpg",
+            caption: "IT Football Team",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/IT-FresherWelcome23-24AY.jpg",
+            caption: "IT Fresher Welcome (2023-2024)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/IT-LeadershipExperiencesSharingSeminar-scaled.jpg",
+            caption: "Leadership Experiences Sharing Seminar",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/IT-ထမနဲပွဲ.jpg",
+            caption: "ထမနဲထိုးပွဲ",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/IT-မန္တလေးတိုင်းဒေသကြီး-လူငယ်ရေးရာကော်မတီ-စုံညီပွဲတော်-ProjectShow-scaled.jpg",
+            caption: "မန္တလေးတိုင်းဒေသကြီးလူငယ်ရေးရာကော်မတီစုံညီပွဲတော်",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/IT-SettingUpWindow-PrintServer3-scaled.jpg",
+            caption: "Setting up Windows Print Server",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/IT-SolarTrackingSystem1-scaled.jpg",
+            caption: "Solar Tracking System",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Software-Lab-Java-scaled.jpg",
+            caption: "Software Lab - Java",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/IT-Net4-scaled.jpg",
+            caption: "Network Lab",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide";
+          if (idx === 0) slide.classList.add("active");
+          slide.innerHTML = `
+        <img src="${img.src}" alt="Slide ${idx + 1}">
+        <div class="caption">${img.caption}</div>
+      `;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          let next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+        }
+
+        function prevSlide() {
+          let prev = (currentIndex - 1 + slides.length) % slides.length;
+          showSlide(prev);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        });
+
+        function handleSwipe() {
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        }
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>
