@@ -1,0 +1,2655 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Department of Mechatronic Engineering</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+
+      /* Image Slider Container */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>History</h2>
+
+        <ul>
+          <p>
+            The Department of Mechatronic Engineering in Technological
+            University(Mandalay) was founded in 1999 and B-Tech (Mechatronics)
+            and B.E. (Mechatronics) courses were introduced since then. The
+            degree of B-Tech was conferred in 2004 and B.E. (Mechatronics) was
+            conferred in 2005. The degree of M.E. (Mechatronics) was started to
+            confer in 2007. The programmed conferred in the Department of
+            Mechatronic Engineering are followings:
+          </p>
+          <li>
+            Bachelor of Technology (Mechatronics) - *(It is stopped in 2012)
+          </li>
+          <li>Bachelor of Engineering (Mechatronics)</li>
+          <li>Master of Engineering (Mechatronics)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>
+          To produce brilliant Mechatronics Engineers with the base of modern
+          theoretical and practical curriculum.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <ul>
+          <li>
+            Studying of the practical requirement and leaning of the
+            international Mechatronic Engineering course and to perform the
+            activities of practical teaching.
+          </li>
+          <li>To upgrade the ability of teacher’s activities.</li>
+          <li>
+            Identify new learning environments and complete teaching aids.
+          </li>
+          <li>
+            To be an engineer who can generate the sophisticated technology
+            based on science and technology known
+          </li>
+          <li>
+            To create opportunities, encourage innovation and research
+            activities.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Objectives</h2>
+        <ul>
+          <li>
+            Students who are attending at the undergraduate courses must success
+            with the rate of more than 80%. No more than 5% of customer
+            complaints.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Degree Awards</h2>
+        <ul>
+          <li>Bachelor of Engineering B.E (Mechatronics)</li>
+          <li>Master of Engineering M.E (Mechatronics)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Research Area and Field</h2>
+        <ul>
+          <li>Robotics</li>
+          <li>Control</li>
+          <li>Automatoin</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Latest Research, Project, Field and other Activities</h2>
+        <ul>
+          <li>
+            Automatic Fruit Classification using 4Dof Robotic Arm with Machine
+            Vision
+          </li>
+          <li>
+            SCADA-Based Simulation for Thermal Power Plant Automation System
+          </li>
+          <li>
+            ROS2-Based Autonomous Waitress Robot Using LiDAR Implementation of
+            Unmanned Aerial Vehicle
+          </li>
+          <li>Design and Construction of STAR Robot</li>
+          <li>Real Time Leaf Disease Classification with Deep Learning</li>
+          <li>
+            Multi-person Human Pose Estimation and Activity Recognition Using
+            Deep Learning
+          </li>
+          <li>PID-Based Reaction Wheel Driven Balancing Bike</li>
+          <li>PLC-Based Liquid Mixing and Filling System</li>
+          <li>PLC-Based Automatic Height Sorting System</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Laboratories and Workshops</h2>
+        <ul>
+          <li>Control Theory Lab</li>
+          <li>Computer Lab</li>
+          <li>Robotics Manipulator Lab</li>
+          <li>Electronic Circuit and Fabrication Lab</li>
+          <li>PLC Lab</li>
+          <li>Factory Automation Lab</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block" style="padding: 0">
+      <div class="content-inner">
+        <h2>Activities</h2>
+        <div class="slider-container" id="sliderContainer">
+          <div class="slider-wrapper" id="sliderWrapper">
+            <!-- Slides will be injected -->
+          </div>
+          <div class="slider-nav">
+            <button id="prevBtn" aria-label="Previous Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              </svg>
+            </button>
+            <button id="nextBtn" aria-label="Next Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tables -->
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Curriculum for Bachelor of Mechatronic Engineering</h2>
+        <!-- First Year / 1st Semester -->
+        <details class="custom-details" open>
+          <summary>B.E. Year I</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            Learning time (in hours) and Estimating SLT credit for a course:
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">M 11011</td>
+                  <td data-label="Courses">Myanmar</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">E 11011</td>
+                  <td data-label="Courses">English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EM 11011</td>
+                  <td data-label="Courses">Engineering Mathematics I</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">Ph 11011</td>
+                  <td data-label="Courses">Engineering Physics I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>30</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">Ch 11011</td>
+                  <td data-label="Courses">Engineering Chemistry I</td>
+                  <td>45</td>
+                  <td>15</td>
+                  <td>30</td>
+                  <td>90</td>
+                  <td>90</td>
+                  <td>180</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ME 11011</td>
+                  <td data-label="Courses">Basic Engineering Drawing</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">McE 11011</td>
+                  <td data-label="Courses">Introduction to Mechatronics I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>240</td>
+                  <td>75</td>
+                  <td>90</td>
+                  <td>405</td>
+                  <td>405</td>
+                  <td>810</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>16</td>
+                  <td>5</td>
+                  <td>6</td>
+                  <td>27</td>
+                  <td>27</td>
+                  <td>54</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td colspan="10">
+                    <p>
+                      Notes: 1. * F2F = Face-to-Face 2. ** self- learning will
+                      include learning from self-learning modules and any
+                      additional non F2F hours self-learning and preparation for
+                      lecture/ lab, / tutorial and test and evaluation
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">M 12011</td>
+                  <td data-label="Courses">Myanmar</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">E 12011</td>
+                  <td data-label="Courses">English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">EM 12012</td>
+                  <td data-label="Courses">Engineering Mathematics II</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">Ph 12011</td>
+                  <td data-label="Courses">Engineering Physics II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>30</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">Ch 12011</td>
+                  <td data-label="Courses">Engineering Chemistry II</td>
+                  <td>45</td>
+                  <td>15</td>
+                  <td>30</td>
+                  <td>90</td>
+                  <td>90</td>
+                  <td>180</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">ME 12011</td>
+                  <td data-label="Courses">Basic Engineering Drawing</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">McE 12011</td>
+                  <td data-label="Courses">Introduction to Mechatronics II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>240</td>
+                  <td>75</td>
+                  <td>90</td>
+                  <td>405</td>
+                  <td>405</td>
+                  <td>810</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>16</td>
+                  <td>5</td>
+                  <td>6</td>
+                  <td>27</td>
+                  <td>27</td>
+                  <td>54</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Second Year -->
+        <details class="custom-details">
+          <summary>B.E. Year II</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 21011</td>
+                  <td data-label="Courses">English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 21013</td>
+                  <td data-label="Courses">Engineering Mathematics III</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 21016</td>
+                  <td data-label="Courses">Engineering Circuits Analysis I</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">McE 21012</td>
+                  <td data-label="Courses">Factory Control Engineering I</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">McE 21015</td>
+                  <td data-label="Courses">Engineering Mechanics I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">McE 21019</td>
+                  <td data-label="Courses">
+                    Computer Science and Programming I
+                  </td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">ME 21012</td>
+                  <td data-label="Courses">Workshop Technology I</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>225</td>
+                  <td>45</td>
+                  <td>105</td>
+                  <td>375</td>
+                  <td>375</td>
+                  <td>750</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>15</td>
+                  <td>3</td>
+                  <td>7</td>
+                  <td>25</td>
+                  <td>25</td>
+                  <td>50</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 22011</td>
+                  <td data-label="Courses">English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 22014</td>
+                  <td data-label="Courses">Engineering Mathematics IV</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 22016</td>
+                  <td data-label="Courses">Engineering Circuits Analysis II</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">McE 22012</td>
+                  <td data-label="Courses">Factory Control Engineering II</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">McE 22015</td>
+                  <td data-label="Courses">Engineering Mechanics II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">McE 22019</td>
+                  <td data-label="Courses">
+                    Computer Science and Programming II
+                  </td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">ME 22012</td>
+                  <td data-label="Courses">Workshop Technology II</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>225</td>
+                  <td>45</td>
+                  <td>105</td>
+                  <td>375</td>
+                  <td>375</td>
+                  <td>750</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>15</td>
+                  <td>3</td>
+                  <td>7</td>
+                  <td>25</td>
+                  <td>25</td>
+                  <td>50</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Third Year -->
+        <details class="custom-details">
+          <summary>B.E. Year III</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 31011</td>
+                  <td data-label="Courses">English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 31015</td>
+                  <td data-label="Courses">Engineering Mathematics V</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 31026</td>
+                  <td data-label="Courses">Electronic Devices I</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">McE 31036</td>
+                  <td data-label="Courses">Digital Electronics I</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">McE 31032</td>
+                  <td data-label="Courses">
+                    Electrnical Machine and Control I
+                  </td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">McE 31022</td>
+                  <td data-label="Courses">Programmable Logic Controller I</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">McE 31034</td>
+                  <td data-label="Courses">
+                    Material Science and Strength of Material I
+                  </td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>240</td>
+                  <td>30</td>
+                  <td>90</td>
+                  <td>360</td>
+                  <td>360</td>
+                  <td>720</td>
+                  <td>16</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>16</td>
+                  <td>2</td>
+                  <td>6</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 32011</td>
+                  <td data-label="Courses">English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 32016</td>
+                  <td data-label="Courses">Engineering Mathematics VI</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 32026</td>
+                  <td data-label="Courses">Electronic Devices II</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">McE 32036</td>
+                  <td data-label="Courses">Digital Electronics II</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">McE 32032</td>
+                  <td data-label="Courses">
+                    Electrnical Machine and Control II
+                  </td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">McE 32022</td>
+                  <td data-label="Courses">Programmable Logic Controller II</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>30</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">McE 32034</td>
+                  <td data-label="Courses">
+                    Material Science and Strength of Material II
+                  </td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>240</td>
+                  <td>30</td>
+                  <td>90</td>
+                  <td>360</td>
+                  <td>360</td>
+                  <td>720</td>
+                  <td>16</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>16</td>
+                  <td>2</td>
+                  <td>6</td>
+                  <td>24</td>
+                  <td>24</td>
+                  <td>48</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Fourth Year -->
+        <details class="custom-details">
+          <summary>B.E. Year IV</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 41011</td>
+                  <td data-label="Courses">English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 41017</td>
+                  <td data-label="Courses">Engineering Mathematics VII</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 41025</td>
+                  <td data-label="Courses">Theory of Machine I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">McE 41035</td>
+                  <td data-label="Courses">Design of Machine Elements I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">McE 41017</td>
+                  <td data-label="Courses">Modeling and Control I</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">McE 41026</td>
+                  <td data-label="Courses">Power Electronics I</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>210</td>
+                  <td>60</td>
+                  <td>30</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>600</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>14</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>20</td>
+                  <td>20</td>
+                  <td>40</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 42011</td>
+                  <td data-label="Courses">English</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 42018</td>
+                  <td data-label="Courses">Engineering Mathematics VIII</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>75</td>
+                  <td>75</td>
+                  <td>150</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 42025</td>
+                  <td data-label="Courses">Theory of Machine II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">McE 42035</td>
+                  <td data-label="Courses">Design of Machine Elements II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">McE 42017</td>
+                  <td data-label="Courses">Modeling and Control II</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">McE 42026</td>
+                  <td data-label="Courses">Power Electronics II</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>210</td>
+                  <td>60</td>
+                  <td>30</td>
+                  <td>300</td>
+                  <td>300</td>
+                  <td>600</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>14</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>20</td>
+                  <td>20</td>
+                  <td>40</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Fifth Year -->
+        <details class="custom-details">
+          <summary>B.E. Year V</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">McE 51018</td>
+                  <td data-label="Courses">Industrial Management I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">McE 51017</td>
+                  <td data-label="Courses">Modern Control System I</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 51021</td>
+                  <td data-label="Courses">Robotic Analysis I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">McE 51051</td>
+                  <td data-label="Courses">Machine Vision I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">McE 51027</td>
+                  <td data-label="Courses">Fuzzy Logic I</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">McE 51039</td>
+                  <td data-label="Courses">
+                    Flexible Manufacturing System and Automatic Control
+                  </td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">McE 51029</td>
+                  <td data-label="Courses">
+                    Microprocessor and Microcontroller I
+                  </td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>210</td>
+                  <td>75</td>
+                  <td>30</td>
+                  <td>315</td>
+                  <td>315</td>
+                  <td>630</td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>14</td>
+                  <td>5</td>
+                  <td>2</td>
+                  <td>21</td>
+                  <td>21</td>
+                  <td>42</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">McE 52018</td>
+                  <td data-label="Courses">Industrial Management II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">McE 52017</td>
+                  <td data-label="Courses">Modern Control System II</td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 52021</td>
+                  <td data-label="Courses">Robotic Analysis II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">McE 52051</td>
+                  <td data-label="Courses">Machine Vision II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">McE 52027</td>
+                  <td data-label="Courses">Fuzzy Logic II</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">6</td>
+                  <td data-label="Code">McE 52039</td>
+                  <td data-label="Courses">
+                    Flexible Manufacturing System and Automatic Control
+                  </td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">7</td>
+                  <td data-label="Code">McE 52029</td>
+                  <td data-label="Courses">
+                    Microprocessor and Microcontroller II
+                  </td>
+                  <td>30</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>180</td>
+                  <td>60</td>
+                  <td>30</td>
+                  <td>270</td>
+                  <td>270</td>
+                  <td>630</td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>12</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>18</td>
+                  <td>18</td>
+                  <td>42</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Sixth Year -->
+        <details class="custom-details">
+          <summary>B.E. Year VI</summary>
+          <div class="table-container">
+            <h3>Semester I</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">McE 61031</td>
+                  <td data-label="Courses">Mechatronic System Design</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">McE 61028</td>
+                  <td data-label="Courses">Quality Control</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 61021</td>
+                  <td data-label="Courses">Robotic Analysis III</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>15</td>
+                  <td>60</td>
+                  <td>60</td>
+                  <td>120</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">HSS 61011</td>
+                  <td data-label="Courses">Humanities and Social Science</td>
+                  <td>30</td>
+                  <td>15</td>
+                  <td>0</td>
+                  <td>45</td>
+                  <td>45</td>
+                  <td>90</td>
+                  <td>2</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>120</td>
+                  <td>60</td>
+                  <td>15</td>
+                  <td>195</td>
+                  <td>195</td>
+                  <td>390</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>8</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>13</td>
+                  <td>13</td>
+                  <td>26</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">Attachment Programme</td>
+                  <td data-label="Courses">
+                    ATTACHMENT PROGRAMME at suitable Design Office/ Construction
+                    Site / Industrial etc. The student must submit diary, report
+                    and recommendation of the supervisor of the Attachment
+                    Program (at training Place), and take Viva voce exam. If not
+                    satisfactory, the student must supplement the program until
+                    his/her work is satisfactory. Otherwise, the student will
+                    not be conferred the degree. No credit point will be
+                    assigned to this program.
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">Mini Thesis / Research Report</td>
+                  <td data-label="Courses">Mini Thesis / RESEARCH REPORT</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>9</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <!-- Summary -->
+        <details class="custom-details">
+          <summary>Summary</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Semester</th>
+                  <th>SLT/Week (Hrs)</th>
+                  <th>SLT Credit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="2">B.E. Year I</td>
+                  <td>Semester I</td>
+                  <td>54</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>54</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">B.E. Year II</td>
+                  <td>Semester I</td>
+                  <td>50</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>50</td>
+                  <td>17</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">B.E. Year III</td>
+                  <td>Semester I</td>
+                  <td>48</td>
+                  <td>16</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>48</td>
+                  <td>16</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">B.E. Year IV</td>
+                  <td>Semester I</td>
+                  <td>40</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>40</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">B.E. Year V</td>
+                  <td>Semester I</td>
+                  <td>42</td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>42</td>
+                  <td>14</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">B.E. Year VI</td>
+                  <td>Semester I</td>
+                  <td>26</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td>Semester II</td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td rowspan="2" style="border: none"></td>
+                  <td>Sub Total</td>
+                  <td>494</td>
+                  <td>163</td>
+                </tr>
+                <tr>
+                  <td>Final Year Project</td>
+                  <td>-</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td>Industrial Training</td>
+                  <td>-</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>Grand Total</td>
+                  <td>-</td>
+                  <td>176</td>
+                </tr>
+              </tbody>
+            </table>
+            <h3><u>Remarks</u></h3>
+            <p>
+              Accordimg to the EEAC Manual 2018 <br />
+              Final Year Project = minimum of 6 SLT credits and maximum of 12
+              SLT credits <br />
+              Industrial Training = maximum of 6 SLT credits
+            </p>
+          </div>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <p>
+              Learning time (in hours) and Estimating SLT credit for a course:
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="3">Sr. No</th>
+                  <th rowspan="3">Code</th>
+                  <th rowspan="3">Courses</th>
+                  <th colspan="3">
+                    Traditional (Guided) in class learning activities
+                  </th>
+                  <th rowspan="2" colspan="3">Total</th>
+                  <th rowspan="3">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lecture</th>
+                  <th>Tutorial</th>
+                  <th>Practical</th>
+                </tr>
+                <tr>
+                  <th>*F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>F2F</th>
+                  <th>Non F2F</th>
+                  <th>SLT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: left" colspan="10">F2F</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">Attachment Programme</td>
+                  <td data-label="Courses">
+                    ATTACHMENT PROGRAMME at suitable Design Office/ Construction
+                    Site / Industrial etc. The student must submit diary, report
+                    and recommendation of the supervisor of the Attachment
+                    Program (at training Place), and take Viva voce exam. If not
+                    satisfactory, the student must supplement the program until
+                    his/her work is satisfactory. Otherwise, the student will
+                    not be conferred the degree. No credit point will be
+                    assigned to this program.
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">Mini Thesis / Research Report</td>
+                  <td data-label="Courses">Mini Thesis / RESEARCH REPORT</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>9</td>
+                </tr>
+                <!-- Total Row -->
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <strong>Student learning time (SLT) per wk</strong>
+                  </td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- ME -->
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>
+          Technological Universities Courses Offered by the Department of
+          Mechatronic Engineering for Master of Mechatronic Engineering (McE)
+        </h2>
+        <!-- First Year / 1st Semester -->
+        <details class="custom-details" open>
+          <summary>First Semester</summary>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th>Periods per week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 71001</td>
+                  <td data-label="Courses">English</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 71009</td>
+                  <td data-label="Courses">Advance Engineering Mathematics</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 71037</td>
+                  <td data-label="Courses">
+                    Digital Control System Analysis and Design
+                  </td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">McE 71021</td>
+                  <td data-label="Courses">Industrial Robotics</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">McE 71038</td>
+                  <td data-label="Courses">
+                    Process Control Instrumentation Technology
+                  </td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No" colspan="3">
+                    <strong>Total</strong>
+                  </td>
+                  <td>19</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>20</td>
+                  <td>19.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        <details class="custom-details">
+          <summary>Second Semester</summary>
+          <div class="table-container">
+            <h3>Semester II</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th>Periods per week</th>
+                  <th rowspan="2">Credit Points</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>T</th>
+                  <th>P</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Sr. No">1</td>
+                  <td data-label="Code">E 72001</td>
+                  <td data-label="Courses">English</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">2</td>
+                  <td data-label="Code">EM 72010</td>
+                  <td data-label="Courses">Advance Engineering Mathematics</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>3.5</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">3</td>
+                  <td data-label="Code">McE 72047</td>
+                  <td data-label="Courses">Intelligent Control</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">4</td>
+                  <td data-label="Code">McE 72031</td>
+                  <td data-label="Courses">Embedded System</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No">5</td>
+                  <td data-label="Code">McE 72057</td>
+                  <td data-label="Courses">Digital Image Processing</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td data-label="Sr. No" colspan="3">
+                    <strong>Total</strong>
+                  </td>
+                  <td>19</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>20</td>
+                  <td>19.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-၂၀၂၃-၂၀၂၄Internship-Training-ပြီးဆုံးခြင်း-အခမ်းအနား-စုပေါင်းအမှတ်တရဓါတ်ပုံ.jpg",
+            caption: "Internship Training Completion Ceremony (2023-2024)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-၂၀၂၃-၂၀၂၄မော်တော်ယာဥ်နည်းပညာသုတေသနဌာနInternship-Training-ပြီးဆုံးကြောင်း-လက်မှတ်ပေးအပ်ခြင်း.jpg",
+            caption:
+              "Motor Vehicle Technology Department Internship Training Completion Ceremony (2023-2024)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-Computer-Lab.jpg",
+            caption: "Computer Lab",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-Factory-Automatioin-Lab.jpg",
+            caption: "Factory Automation Lab",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-Knowledge-Sharing-from-Seniors-2019-2020.jpg",
+            caption: "Knowledge Sharing from Seniors (2019-2020)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-Knowledge-Sharing.jpg",
+            caption: "Knowledge Sharing",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-LuNge-sakkar-wine.jpg",
+            caption: "လူငယ်စကားဝိုင်း",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-PLC-Lab.jpg",
+            caption: "PLC Lab",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-Project-1.jpg",
+            caption: "Project 01",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-Project-2.jpg",
+            caption: "Project 02",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-Project-3.jpg",
+            caption: "Project 03",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-Project-4.jpg",
+            caption: "Project 04",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-Project-5.jpg",
+            caption: "Project 05",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-Students-Lab-Practical-and-Workshop.jpg",
+            caption: "Students Lab Practical and Workshop",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-မိုးရာသီဘောလုံးအားကစားပြိုင်ပွဲ၂၀၂၄-၂၀၂၅.jpg",
+            caption: "Monsoon Football Tournament 2024-2025",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-၂၀၂၂-၂၀၂၃POWERGEN-KYAUKSE-သို့-Field-Trip-လေ့လာရေးခရီးစဥ်-1.jpg",
+            caption: "Field Trip to POWERGEN KYAUKSE (2022-2023)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-၂၀၂၃-၂၀၂၄-မက္ကာထရောနစ်အင်ဂျင်နီယာဌာန၊Fresher-Welcome.jpg",
+            caption: "Fresher Welcome (2023-2024)",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide";
+          if (idx === 0) slide.classList.add("active");
+          slide.innerHTML = `
+        <img src="${img.src}" alt="Slide ${idx + 1}">
+        <div class="caption">${img.caption}</div>
+      `;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          let next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+        }
+
+        function prevSlide() {
+          let prev = (currentIndex - 1 + slides.length) % slides.length;
+          showSlide(prev);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        });
+
+        function handleSwipe() {
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        }
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>
