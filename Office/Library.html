@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Department of Library</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+
+      /* Image Slider Container */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>About</h2>
+        <p>
+          The origin of the University of Technology (Mandalay) Library is
+          (11.7.in 1995), it was the same place where the Government Industrial
+          Science (Mandalay) School was first opened. Through this, on
+          (20.8.1999) The Government College of Education (Mandalay) was
+          expanded to the level of the Government College of Technology
+          (Mandalay) and the Library also became the Government College of
+          Technology (Mandalay). Then on (22.10.2002) the Government College of
+          Education (Mandalay) was renamed as the University of Technology
+          (Mandalay), Patheingyi Township, Aung Chan Thar Ward moved to and
+          opened. When it was promoted from the College University Level to the
+          University Library Level. Now, the University of Technology (Mandalay)
+          Library is located at the back of the main building of the University
+          of Technology (Mandalay).
+        </p>
+      </div>
+    </div>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>Our vision is to be the best library partnership in the nation.</p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <ul>
+          <li>The library is a place that can provide knowledge for user.</li>
+          <li>To provide the needs of teaching and learning.</li>
+          <li>
+            To provide services for emerging scholars for future generations.
+          </li>
+          <li>
+            To provide a lot of good books and literature to refer to the
+            research work.
+          </li>
+          <li>
+            To help when studying for the goals of teachers and students
+            training to develop skills.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>News & Events</h2>
+        <ul>
+          <li>Scholarships</li>
+          <li>Job Opportunities</li>
+          <li>Student Exchange Program</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/mech-field-trip-2024-2025.png.png",
+            caption: "Field Trip (2024-2025)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Fitting-Shop-Practical-Class.png",
+            caption: "Fitting Shop Practical Class",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Lathe-Machine-Practical-Class.png",
+            caption: "Lathe Machine Practical Class",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/mech-student-autocad-drawing-training.png",
+            caption: "Student AutoCAD Drawing Training",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Solid-Mechanics-Lab.png",
+            caption: "Solid Mechanics Lab",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/Welding-Shop-Practical-Class.png",
+            caption: "Welding Shop Practical Class",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/2024-2025-Academic-Year-Mechanical-မေဂျာဘောလုံး-အားကစားသမားများ.png",
+            caption: "Mechanical Major ဘောလုံးအားကစားသမားများ (2024-2025)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/2024-2025-Mechanical-major-students-ထမနဲထိုး-ပြိုင်ပွဲ.png",
+            caption: "Mechanical Major Students ထမနဲထိုးပြိုင်ပွဲ(2024-2025)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/08/2024-2025-Mechanical-Fresher-Welcome.png",
+            caption: "Mechanical Fresher Welcome(2024-2025)",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide";
+          if (idx === 0) slide.classList.add("active");
+          slide.innerHTML = `
+        <img src="${img.src}" alt="Slide ${idx + 1}">
+        <div class="caption">${img.caption}</div>
+      `;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          let next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+        }
+
+        function prevSlide() {
+          let prev = (currentIndex - 1 + slides.length) % slides.length;
+          showSlide(prev);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        });
+
+        function handleSwipe() {
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        }
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>

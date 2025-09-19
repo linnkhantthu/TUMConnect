@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Electronic Engineering</title>
+    <style>
+      /* General Styles */
+      body {
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #2c3e50;
+      }
+      /* Page Title */
+      .page-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        color: #003366;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 20px 20px 20px;
+      }
+      /* Content Blocks */
+      .content-block {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .content-inner {
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 20px;
+        padding: 40px 35px;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .content-inner h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        color: #003366;
+      }
+
+      .content-inner p,
+      .content-inner ul {
+        font-size: 18px;
+        line-height: 1.8;
+        margin: 0;
+        padding-left: 20px;
+        text-align: justify;
+        color: #222;
+      }
+
+      .content-inner ul {
+        list-style-type: disc;
+      }
+
+      /* Image Slider Container */
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Table Styling */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        min-width: 600px; /* ensures columns don’t squish too much */
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      table thead {
+        background: #003366;
+        color: #fff;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: center;
+      }
+
+      table th {
+        font-weight: bold;
+      }
+
+      table tbody tr:nth-child(even) {
+        background: #f2f6fa;
+      }
+
+      /* Smaller font tweaks */
+      @media (max-width: 768px) {
+        table {
+          font-size: 14px;
+          min-width: 500px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 13px;
+          min-width: 400px;
+        }
+      }
+      /** Custom Details and Summary **/
+      /* Style the <details> element */
+      .custom-details {
+        background-color: #ffffff; /* Light background */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 6px; /* Rounded corners */
+        padding: 10px 15px; /* Some padding */
+        margin: 10px 0; /* Space between items */
+        transition: background-color 0.3s ease;
+      }
+
+      /*Change background on hover */
+      .custom-details:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Style the <summary> element */
+      .custom-details summary {
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer; /* Indicates it's clickable */
+        list-style: none; /* Remove default triangle */
+        position: relative;
+        padding-left: 20px; /* Space for custom arrow */
+      }
+
+      /* Custom arrow using ::before */
+      .custom-details summary::before {
+        content: "▶"; /* Right-pointing triangle */
+        position: absolute;
+        left: 0;
+        transition: transform 0.3s ease;
+      }
+
+      /* Rotate arrow when open */
+      .custom-details[open] summary::before {
+        transform: rotate(90deg); /* Downward pointing */
+      }
+
+      /* Style the content inside details */
+      .custom-details div {
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>History</h2>
+        <p>
+          The Department of Electronic Engineering is one of the departments of
+          Technological University (Mandalay). In this university, the
+          Electronic Engineering Department was established on July 11, 1955.
+          There are 18 teaching staff and 299 students in the 2024-2025 academic
+          year. Under the department of Electronics, there are four engineering
+          field areas.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Vision</h2>
+        <p>
+          The programming will be recognized by international in Electronics and
+          Communication field with research focus catering to the needs of our
+          community.
+        </p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Mission</h2>
+        <ul>
+          <li>
+            To do continual development by reviewing and prescribing modernized
+            curriculum in electronics and communication technologies
+          </li>
+          <li>
+            To hold seminars, workshops, conferences and trainings program for
+            upgrading the teaching capacity of the staff
+          </li>
+          <li>To create better learning environments for students</li>
+          <li>
+            To equip with practical and laboratory facilities for better
+            performance
+          </li>
+          <li>To encourage research projects</li>
+          <li>
+            To implement better quality management system in the department
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Objectives</h2>
+        <ul>
+          <li>
+            အီလက်ထရောနစ်အင်ဂျင်နီယာဘွဲ့ကြိုသင်တန်းတွင် တက်ရောက်သင်ကြားနေသော
+            ကျောင်းသား/သူ များ၏ အောင်ချက် ရာခိုင်နှုန်းအား (၈၅) % ထက် ပိုမို
+            ရရှိစေရန်။
+          </li>
+          <li>
+            Customer များထံမှ Complaint များရရှိမှုကို (၅) % ထက် မပိုစေရန်။
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Degree Awards</h2>
+        <ul>
+          <li>B.E (Electronics), (Bachelor of Engineering) (Electronics)</li>
+          <li>M.E (Electronics), (Master of Engineering) (Electronics)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Research Areas</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Fields/Research Areas</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Electronics</td>
+                <td>Electric Vehicle</td>
+              </tr>
+              <tr>
+                <td>Embedded</td>
+                <td>
+                  Internet of Thing (IOT), Raspberry PI, Signal Processing,
+                  Image Processing, Artificial Intelligence (AI)
+                </td>
+              </tr>
+              <tr>
+                <td>Control</td>
+                <td>
+                  PLC, Industrial Internet of Thing (IIOT), Industrial
+                  Electronics, SCADA, Robot
+                </td>
+              </tr>
+              <tr>
+                <td>Communication</td>
+                <td>Microwave, Networking</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>Latest Research, Projects, Fields and other Activities</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="3">Research</th>
+              </tr>
+              <tr>
+                <th>No.</th>
+                <th>Topics</th>
+                <th>Remark</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1.</td>
+                <td>
+                  Design and Modeling on monitoring and Distribution Water
+                  Supply Networks Using SCADA System
+                </td>
+                <td>Control (PLC/SCADA)</td>
+              </tr>
+              <tr>
+                <td>2.</td>
+                <td>
+                  Implementation of FSK Transceiver Using Software Defined Radio
+                  (SDR) with USRP
+                </td>
+                <td>Communication (SDR)</td>
+              </tr>
+              <tr>
+                <td>3.</td>
+                <td>
+                  Modelling and Simulation on the State of Charge for Electric
+                  Vehicle by using Neutral Network
+                </td>
+                <td>Electronic (Electric Vehicle)</td>
+              </tr>
+              <tr>
+                <td>4.</td>
+                <td>
+                  Analysis and Simulation of Microstrip Coupled Line Bandpass
+                  Filter for WLAN Applications
+                </td>
+                <td>Communication (Microwave)</td>
+              </tr>
+              <tr>
+                <td>5.</td>
+                <td>
+                  Development of Trash Classification Model (Office) Using
+                  Python Language
+                </td>
+                <td>Embedded (Image processing)</td>
+              </tr>
+              <tr>
+                <td>6.</td>
+                <td>Simulation of Pyramidal Horn Antenna for Video Link</td>
+                <td>Communication (Microwave)</td>
+              </tr>
+              <tr>
+                <td>7.</td>
+                <td>
+                  Battery Monitoring System of Electric Vehicle Based on
+                  Wireless Network
+                </td>
+                <td>Electronic, Communication (Electric Vehicle)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="4">Projects</th>
+              </tr>
+              <tr>
+                <th>No.</th>
+                <th>Topics</th>
+                <th>Academic Year</th>
+                <th>Remark</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1.</td>
+                <td>Mini 12V Battery Swapping Station</td>
+                <td>2023-2024 (IDP)</td>
+                <td>Electronic (Electric Vehicle)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th colspan="4">Fields/Internship</th>
+              </tr>
+              <tr>
+                <th>No.</th>
+                <th>Topics</th>
+                <th>Academic Year</th>
+                <th>Remark</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1.</td>
+                <td>MRTV</td>
+                <td>2022-2023</td>
+                <td>Field</td>
+              </tr>
+              <tr>
+                <td>2.</td>
+                <td>မော်တော်ယာဉ်သုတေသနဌာန (ပြင်ဦးလွင်)</td>
+                <td>2022-2023</td>
+                <td>Field</td>
+              </tr>
+              <tr>
+                <td>3.</td>
+                <td>MPT</td>
+                <td>2023-2024</td>
+                <td>Field</td>
+              </tr>
+              <tr>
+                <td>4.</td>
+                <td>MPT</td>
+                <td>2024-2025</td>
+                <td>Internship</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block" style="padding: 0">
+      <div class="content-inner">
+        <h2>Activities</h2>
+        <div class="slider-container" id="sliderContainer">
+          <div class="slider-wrapper" id="sliderWrapper">
+            <!-- Slides will be injected -->
+          </div>
+          <div class="slider-nav">
+            <button id="prevBtn" aria-label="Previous Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              </svg>
+            </button>
+            <button id="nextBtn" aria-label="Next Slide">
+              <svg viewBox="0 0 24 24">
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tables -->
+    <div class="content-block">
+      <div class="content-inner">
+        <h2>
+          MINISTRY OF SCIENCE AND TECHNOLOGY <br />
+          TECHNOLOGICAL UNIVERSITIES <br />
+          DEPARTMENT OF ELECTRONIC ENGINEERING <br />
+          CURRICULUM FOR BACHELOR OF ELECTRONIC ENGINEERING <br />
+          2025-2026 ACADEMIC YEAR
+        </h2>
+        <!-- 1st Semester -->
+        <details class="custom-details" open>
+          <summary>Third Year</summary>
+          <div class="table-container">
+            <h3>First Semester</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="5">Period/week</th>
+                  <th rowspan="2">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lect.</th>
+                  <th>Tut.</th>
+                  <th>Pract</th>
+                  <th>Total</th>
+                  <th>IL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E-31011</td>
+                  <td>English</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>4.5</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM-31005</td>
+                  <td>Engineering Mathematics V</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>8.5</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>EcE-31001</td>
+                  <td>Engineering Circuit Analysis I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>EcE-31002</td>
+                  <td>Digital Communication I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>EcE-31011</td>
+                  <td>Engineering Electromagnetic I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>EcE-31021</td>
+                  <td>Integrated Electronics I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>EcE-31003</td>
+                  <td>Modeling and Control I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>16</td>
+                  <td>7</td>
+                  <td>5</td>
+                  <td>28</td>
+                  <td>38</td>
+                  <td>21</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Second Semester</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="5">Period/week</th>
+                  <th rowspan="2">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lect.</th>
+                  <th>Tut.</th>
+                  <th>Pract</th>
+                  <th>Total</th>
+                  <th>IL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E-32011</td>
+                  <td>English</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>4.5</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM-32006</td>
+                  <td>Engineering Mathematics VI</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>8.5</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>EcE-32001</td>
+                  <td>Engineering Circuit Analysis II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>EcE-32002</td>
+                  <td>Digital Communication II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>EcE-32011</td>
+                  <td>Engineering Electromagnetic II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>EcE-32021</td>
+                  <td>Integrated Electronics II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>EcE-32003</td>
+                  <td>Modeling and Control II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>16</td>
+                  <td>7</td>
+                  <td>5</td>
+                  <td>28</td>
+                  <td>38</td>
+                  <td>21</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Remark: After Semester Examination, Group Project during the
+            vacation.
+          </p>
+        </details>
+
+        <details class="custom-details">
+          <summary>Fourth Year</summary>
+          <div class="table-container">
+            <h3>First Semester</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="5">Period/week</th>
+                  <th rowspan="2">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lect.</th>
+                  <th>Tut.</th>
+                  <th>Pract</th>
+                  <th>Total</th>
+                  <th>IL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E-41011</td>
+                  <td>English</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>4.5</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM-41007</td>
+                  <td>Engineering Mathematics VII</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>8.5</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>EcE-41002</td>
+                  <td>Computer Communication</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>EcE-41021</td>
+                  <td>Digital Design with HDL I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>EcE-41003</td>
+                  <td>Modern Control System I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>EP-41043</td>
+                  <td>Electrical Machines I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>4.5</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>EcE-41031</td>
+                  <td>Industrial Electronic and Control</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>16</td>
+                  <td>7</td>
+                  <td>4</td>
+                  <td>27</td>
+                  <td>37.5</td>
+                  <td>20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Second Semester</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="5">Period/week</th>
+                  <th rowspan="2">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lect.</th>
+                  <th>Tut.</th>
+                  <th>Pract</th>
+                  <th>Total</th>
+                  <th>IL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>E-42011</td>
+                  <td>English</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>4.5</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EM-42008</td>
+                  <td>Engineering Mathematics VIII</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>8.5</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>EcE-42002</td>
+                  <td>Computer Networking</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>EcE-42021</td>
+                  <td>Digital Design with HDL II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>EcE-42003</td>
+                  <td>Modern Control System II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>EP-42043</td>
+                  <td>Electrical Machines II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>4.5</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>EcE-42031</td>
+                  <td>Programmable Logic Controllers</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>16</td>
+                  <td>5</td>
+                  <td>6</td>
+                  <td>27</td>
+                  <td>37.5</td>
+                  <td>20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          Remark: After Semester Examination, Industrial Attachment during the
+          vacation.
+        </details>
+
+        <details class="custom-details">
+          <summary>Fifth Year</summary>
+          <div class="table-container">
+            <h3>First Semester</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="5">Period/week</th>
+                  <th rowspan="2">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lect.</th>
+                  <th>Tut.</th>
+                  <th>Pract</th>
+                  <th>Total</th>
+                  <th>IL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>EcE-51001</td>
+                  <td>Advanced Electronics I</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EcE-51003</td>
+                  <td>PIC Microcontroller I</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>EcE-51005</td>
+                  <td>Digital Signal Processing I</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>EcE-51013</td>
+                  <td>Microwave Engineering I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>EcE-51012</td>
+                  <td>Modern Electronic Communication Systems I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>EcE-51006</td>
+                  <td>Industrial Management I</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>4.5</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>EcE-51007</td>
+                  <td>Integrated Design Project</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>12</td>
+                  <td>3</td>
+                  <td>11</td>
+                  <td>26</td>
+                  <td>32.5</td>
+                  <td>19</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-container">
+            <h3>Second Semester</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="5">Period/week</th>
+                  <th rowspan="2">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lect.</th>
+                  <th>Tut.</th>
+                  <th>Pract</th>
+                  <th>Total</th>
+                  <th>IL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>EcE-52001</td>
+                  <td>Advanced Electronics II</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EcE-52003</td>
+                  <td>PIC Microcontroller II</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>EcE-52005</td>
+                  <td>Digital Signal Processing II</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>EcE-52013</td>
+                  <td>Microwave Engineering II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>EcE-52012</td>
+                  <td>Modern Electronic Communication Systems II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>EcE-52006</td>
+                  <td>Industrial Management II</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>4.5</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>EcE-52007</td>
+                  <td>Integrated Design Project</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>12</td>
+                  <td>3</td>
+                  <td>11</td>
+                  <td>26</td>
+                  <td>32.5</td>
+                  <td>19</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          Remark: After Second Semester Examination, Submission of Report and
+          Presentation for IDP is to be done within 2 weeks.
+        </details>
+
+        <details class="custom-details">
+          <summary>Final Year</summary>
+          <div class="table-container">
+            <h3>First Semester</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2">Sr. No</th>
+                  <th rowspan="2">Code</th>
+                  <th rowspan="2">Courses</th>
+                  <th colspan="5">Period/week</th>
+                  <th rowspan="2">SLT Credit</th>
+                </tr>
+                <tr>
+                  <th>Lect.</th>
+                  <th>Tut.</th>
+                  <th>Pract</th>
+                  <th>Total</th>
+                  <th>IL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>HSS-61011</td>
+                  <td>Humanities and Social Science</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3</td>
+                  <td>6</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EcE-61001</td>
+                  <td>Elective</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>5</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>11</td>
+                  <td>6</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-container">
+            <h3>**Choose 1 subject for 3 Elective</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Elective</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Track 1</td>
+                  <td>SCADA Technology</td>
+                </tr>
+                <tr>
+                  <td>Track 2</td>
+                  <td>Networkingg Technology</td>
+                </tr>
+                <tr>
+                  <td>Track 3</td>
+                  <td>VLSI Designg and Technology</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-container">
+            <h3>Second Semester</h3>
+            <p>
+              In second semester, final year students have to give at least
+              three seminar presentations and viva voce, and thesis book for the
+              FYP (Final Year Project /Graduation Thesis / Mini Thesis) and
+              Internship report, Log book and personal assessment for Internship
+              Program.
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Code</th>
+                  <th>Courses</th>
+                  <th>Period/week</th>
+                  <th>SLT Credit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>EcE-62007</td>
+                  <td>Internship Training</td>
+                  <td>8 Weeks</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>EcE-62008</td>
+                  <td>Mini Thesis</td>
+                  <td>Semester II</td>
+                  <td>9</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              Take Credit Points = 9 for FYP/ Graduation Thesis / Mini Thesis
+              <br />
+              Take Credit Points = 4 for Internship Program (Must be Continuous
+              8 Weeks) <br />
+              1 Lecture = 1 Credit, 1 Tutorial = 0.5 Credit , 1 Practical = 0.5
+              Credit
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      (function () {
+        const images = [
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-MRTV-Field-2022-2023.jpg",
+            caption: "MRTV Field Trip",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-pjshow.jpg",
+            caption: "Project Show",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-စိန်ရတုပြည်ထောင်စုနေ့အထိမ်းအမှတ်-လူငယ်နှင့်-စာပေပွဲတော်.jpg",
+            caption: "စိန်ရတုပြည်ထောင်စုနေ့အထိမ်းအမှတ်လူငယ်နှင့် စာပေပွဲတော်",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-ဘာသာရပ်မိတ်ဆက်ပွဲ-Project-Show.jpg",
+            caption: "ဘာသာရပ်မိတ်ဆက်ပွဲ & Project Show",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-ဘာသာရပ်မိတ်ဆက်ပွဲ-Project-Show-1.jpg",
+            caption: "ဘာသာရပ်မိတ်ဆက်ပွဲ & Project Show",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-မန္တလေးတိုင်းဒေသကြီး-လူငယ်ရေးရာကော်မတီ-စုံညီပွဲတော်.jpg",
+            caption: "မန္တလေးတိုင်းဒေသကြီး လူငယ်ရေးရာကော်မတီ စုံညီပွဲတော်",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-မော်တော်ယာဉ်သုတေသနဌာန-ပြင်ဦးလွင်-2022-2023.jpg",
+            caption: "မော်တော်ယာဉ်သုတေသနဌာန ပြင်ဦးလွင် 2022-2023",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-ပညာသင်နှစ်အီလက်ထရောနစ်အင်ယာ-ဆရာကန်တော့ပွဲနှင့်-ဆုပေးပွဲ.jpg",
+            caption: "ပညာသင်နှစ်အီလက်ထရောနစ်အင်ယာ ဆရာကန်တော့ပွဲနှင့် ဆုပေးပွဲ",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/MC-အင်ဂျင်နီယာပညာရေးခရီး-နှစ်၁၀၀ပြည့်အကြို-အခမ်းအနား.jpg",
+            caption: "အင်ဂျင်နီယာပညာရေးခရီး နှစ်၁၀၀ပြည့်အကြို အခမ်းအနား",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-2024-2025-KG12-အီလက်ထရောနစ်အင်ယာ-ဘာသာရပ်မိတ်ဆက်ပွဲ.jpg",
+            caption: "2024-2025 KG12 အီလက်ထရောနစ်အင်ယာ ဘာသာရပ်မိတ်ဆက်ပွဲ",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-K12-discussion.jpg",
+            caption: "KG12 Discussion",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-MPT-Field-2023-2024.jpg",
+            caption: "MPT Field Trip (2023-2024)",
+          },
+          {
+            src: "http://www.tum.edu.mm/wp-content/uploads/2025/09/EC-MPT-Internship-2024-25.jpg",
+            caption: "MPT Internship (2024-25)",
+          },
+        ];
+
+        const wrapper = document.getElementById("sliderWrapper");
+        let currentIndex = 0;
+        let intervalId;
+
+        images.forEach((img, idx) => {
+          const slide = document.createElement("div");
+          slide.className = "slide";
+          if (idx === 0) slide.classList.add("active");
+          slide.innerHTML = `
+        <img src="${img.src}" alt="Slide ${idx + 1}">
+        <div class="caption">${img.caption}</div>
+      `;
+          wrapper.appendChild(slide);
+        });
+
+        const slides = wrapper.querySelectorAll(".slide");
+
+        function showSlide(index) {
+          slides.forEach((s) => s.classList.remove("active"));
+          slides[index].classList.add("active");
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          let next = (currentIndex + 1) % slides.length;
+          showSlide(next);
+        }
+
+        function prevSlide() {
+          let prev = (currentIndex - 1 + slides.length) % slides.length;
+          showSlide(prev);
+        }
+
+        function autoPlay() {
+          intervalId = setInterval(nextSlide, 5000);
+        }
+
+        function resetAutoPlay() {
+          clearInterval(intervalId);
+          autoPlay();
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+
+        // Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        wrapper.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        });
+
+        function handleSwipe() {
+          if (touchEndX < touchStartX - 50) {
+            nextSlide();
+            resetAutoPlay();
+          } else if (touchEndX > touchStartX + 50) {
+            prevSlide();
+            resetAutoPlay();
+          }
+        }
+
+        autoPlay();
+      })();
+    </script>
+  </body>
+</html>
