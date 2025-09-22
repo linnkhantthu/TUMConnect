@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Departments</title>
+  </head>
+  <body>
+    <style>
+      .slider-container {
+        max-width: 900px;
+        margin: 40px auto;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+        pointer-events: none;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .caption {
+        position: absolute;
+        bottom: 15px;
+        left: 20px;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        pointer-events: none;
+        transform: translateY(-50%);
+        z-index: 10; /* <-- Add this */
+      }
+
+      .slider-nav button {
+        background: rgba(255, 111, 0, 0.8);
+        border: none;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .slider-nav button:hover {
+        background: rgba(230, 92, 0, 0.9);
+      }
+
+      #prevBtn {
+        left: 15px;
+      }
+
+      #nextBtn {
+        right: 15px;
+      }
+
+      .slider-nav svg {
+        fill: white;
+        width: 20px;
+        height: 20px;
+      }
+
+      @keyframes pulse {
+        0% {
+          filter: brightness(1);
+        }
+        100% {
+          filter: brightness(1.4);
+        }
+      }
+      .department-card-link {
+        text-decoration: none; /* remove underline */
+        color: inherit; /* keep original text color */
+        flex: 1 1 260px;
+        max-width: 300px;
+        display: grid; /* makes the link cover the card */
+      }
+
+      .department-card {
+        background: #f9fbfc;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .department-card:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-4px);
+      }
+
+      .department-card-img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        margin-bottom: 16px;
+      }
+
+      .hr-style {
+        border: none;
+        height: 4px;
+        background: linear-gradient(to right, #ff6f00, #ffa726, #ff6f00);
+        border-radius: 2px;
+        margin: auto;
+        max-width: 300px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        animation: pulse 2s infinite alternate;
+      }
+
+      /* University Identity Section */
+      .university-identity {
+        padding: 15px 20px;
+        text-align: center;
+        font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+      }
+
+      .university-identity h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+      }
+
+      .identity-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .identity-card {
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        text-align: left;
+      }
+
+      .identity-card h3 {
+        font-size: 20px;
+        color: #ff6600;
+        margin-bottom: 15px;
+      }
+      .identity-card p,
+      .identity-card ul {
+        font-size: 15px;
+        line-height: 1.6;
+        /* text-align: justify; */
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4; /* clamp lines */
+        overflow: hidden;
+        white-space: normal;
+        position: relative; /* for ::after */
+        margin: 0;
+      }
+    </style>
+
+    <div>
+      <h1 style="text-align: center">Departments</h1>
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: stretch;
+          gap: 24px;
+          padding: 30px 10px;
+          max-width: 1200px;
+          margin: auto;
+        "
+      >
+        <!-- Civil Engineering -->
+        <a
+          href="https://www.tum.edu.mm/?page_id=1676"
+          class="department-card-link"
+          ><div class="department-card">
+            <img
+              src="https://www.tum.edu.mm/wp-content/uploads/2025/08/civil-logo.png"
+              alt="TUM Logo"
+              class="department-card-img"
+            />
+            <h3 style="color: #ff6600; margin-bottom: 12px">
+              Civil Engineering
+            </h3>
+            <p style="color: #2c3e50">
+              Master structural design, soil mechanics & sustainable
+              construction techniques.
+            </p>
+          </div></a
+        >
+
+        <!-- Architecture -->
+        <a
+          href="https://www.tum.edu.mm/?page_id=1684"
+          class="department-card-link"
+          ><div class="department-card">
+            <img
+              src="http://www.tum.edu.mm/wp-content/uploads/2024/11/ArchLogo.jpg"
+              alt="Archi Logo"
+              class="department-card-img"
+            />
+            <h3 style="color: #ff6600; margin-bottom: 12px">Architecture</h3>
+            <p style="color: #2c3e50">
+              Learn design, planning, and sustainable architectural practices.
+            </p>
+          </div></a
+        >
+
+        <!-- Electronic Engineering -->
+        <a
+          href="https://www.tum.edu.mm/?page_id=1681"
+          class="department-card-link"
+          ><div class="department-card">
+            <img
+              src="http://www.tum.edu.mm/wp-content/uploads/2025/08/2.-Attach_2-Logo_EC.png"
+              alt="EC Logo"
+              class="department-card-img"
+            />
+            <h3 style="color: #ff6600; margin-bottom: 12px">
+              Electronic Engineering
+            </h3>
+            <p style="color: #2c3e50">
+              Explore circuits, IoT, robotics & communication systems through
+              hands-on learning.
+            </p>
+          </div></a
+        >
+
+        <!-- Electrical Power Engineering -->
+        <a
+          href="https://www.tum.edu.mm/?page_id=1671"
+          class="department-card-link"
+          ><div class="department-card">
+            <img
+              src="http://www.tum.edu.mm/wp-content/uploads/2024/11/EPLogo.jpg"
+              alt="TUM Logo"
+              class="department-card-img"
+            />
+            <h3 style="color: #ff6600; margin-bottom: 12px">
+              Electrical Power Engineering
+            </h3>
+            <p style="color: #2c3e50">
+              Specialize in power systems, generation, transmission &
+              distribution.
+            </p>
+          </div></a
+        >
+
+        <!-- Mechanical Engineering -->
+        <a
+          href="https://www.tum.edu.mm/?page_id=1546"
+          class="department-card-link"
+          ><div class="department-card">
+            <img
+              src="http://www.tum.edu.mm/wp-content/uploads/2024/11/MechanicalLogo.jpg"
+              alt="TUM Logo"
+              class="department-card-img"
+            />
+            <h3 style="color: #ff6600; margin-bottom: 12px">
+              Mechanical Engineering
+            </h3>
+            <p style="color: #2c3e50">
+              Gain expertise in mechanics, thermodynamics, machine design &
+              automation.
+            </p>
+          </div></a
+        >
+
+        <!-- Information Technology Engineering -->
+        <a
+          href="https://www.tum.edu.mm/?page_id=1572"
+          class="department-card-link"
+          ><div class="department-card">
+            <img
+              src="https://www.tum.edu.mm/wp-content/uploads/2025/09/it-logo.png"
+              alt="IT Logo"
+              class="department-card-img"
+            />
+            <h3 style="color: #ff6600; margin-bottom: 12px">
+              Information Technology Engineering
+            </h3>
+            <p style="color: #2c3e50">
+              Learn software development, networking, and data systems.
+            </p>
+          </div></a
+        >
+
+        <!-- Mechatronic Engineering -->
+        <a
+          href="https://www.tum.edu.mm/?page_id=2312"
+          class="department-card-link"
+          ><div class="department-card">
+            <img
+              src="http://www.tum.edu.mm/wp-content/uploads/2025/09/MCLogo.jpg"
+              alt="TUM Logo"
+              class="department-card-img"
+            />
+            <h3 style="color: #ff6600; margin-bottom: 12px">
+              Mechatronic Engineering
+            </h3>
+            <p style="color: #2c3e50">
+              Integrate mechanics, electronics & computing for smart systems.
+            </p>
+          </div></a
+        >
+
+        <!-- Petroleum Engineering -->
+        <a
+          href="https://www.tum.edu.mm/?page_id=1571"
+          class="department-card-link"
+          ><div class="department-card">
+            <img
+              src="http://www.tum.edu.mm/wp-content/uploads/2024/11/PetroleumLogo.jpg"
+              alt="TUM Logo"
+              class="department-card-img"
+            />
+            <h3 style="color: #ff6600; margin-bottom: 12px">
+              Petroleum Engineering
+            </h3>
+            <p style="color: #2c3e50">
+              Focus on exploration, drilling, and extraction technologies.
+            </p>
+          </div></a
+        >
+
+        <!-- Mining Engineering -->
+        <a
+          href="https://www.tum.edu.mm/?page_id=1552"
+          class="department-card-link"
+          ><div class="department-card">
+            <img
+              src="http://www.tum.edu.mm/wp-content/uploads/2024/11/MiningLogo.jpg"
+              alt="TUM Logo"
+              class="department-card-img"
+            />
+            <h3 style="color: #ff6600; margin-bottom: 12px">
+              Mining Engineering
+            </h3>
+            <p style="color: #2c3e50">
+              Learn extraction, mineral processing & sustainable mining
+              techniques.
+            </p>
+          </div></a
+        >
+
+        <!-- Mining Engineering -->
+        <a
+          href="https://www.tum.edu.mm/?page_id=2188"
+          class="department-card-link"
+          ><div class="department-card">
+            <img
+              src="https://www.tum.edu.mm/wp-content/uploads/2025/08/Picture1-1.png"
+              alt="TUM Logo"
+              class="department-card-img"
+            />
+            <h3 style="color: #ff6600; margin-bottom: 12px">
+              Chemical Engineering
+            </h3>
+            <p style="color: #2c3e50">
+              Learn process design, chemical reactions & sustainable production
+              techniques.
+            </p>
+          </div></a
+        >
+      </div>
+    </div>
+  </body>
+</html>
